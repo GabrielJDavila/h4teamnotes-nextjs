@@ -16,6 +16,10 @@ const links = [
     {
         name: "Gym Events",
         href: "/dashboard/gymevents",
+    },
+    {
+        name: "Coaching Cards",
+        href: "/dashboard/coachingcards",
     }
 ]
 

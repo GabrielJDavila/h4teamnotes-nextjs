@@ -1,4 +1,6 @@
 export type Clients = {
-    name: string,
+    firstname: string,
+    lastname: string,
+    weight: string,
     age: string
 }

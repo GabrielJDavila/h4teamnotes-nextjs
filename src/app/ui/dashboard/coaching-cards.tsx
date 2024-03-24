@@ -2,6 +2,7 @@ import { fetchPeople } from "@/app/lib/data";
 
 export default async function AllClients() {
     const clients = await fetchPeople()
+    console.log(clients)
     return (
         <div>
             <p>clients</p>

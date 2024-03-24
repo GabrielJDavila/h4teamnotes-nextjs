@@ -6,9 +6,7 @@ export async function fetchPeople() {
 
     try {
         await new Promise((resolve) => setTimeout(resolve, 3000))
-
-        const data = await sql<Clients>`SELECT * FROM revenue`
-
+        const data = await sql<Clients>`SELECT * FROM people`
         return data.rows
     } catch(err) {
 

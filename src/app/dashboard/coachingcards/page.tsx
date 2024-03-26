@@ -7,7 +7,7 @@ export default async function page(
     { searchParams, }: { searchParams?: {query?: string, page?: string} }) {
     
     const query = searchParams?.query || ""
-    const currentPage = Number(searchParams?.page) || ""
+    const currentPage = Number(searchParams?.page) || 1
 
     const totalPages = await fetchClientPages(query)
 
@@ -15,7 +15,7 @@ export default async function page(
         <div>
             <p>Coaching cards page</p>
             <Search placeholder="Search for clients..."/>
-            <AllClients />
+            <AllClients query={query} currentPage={currentPage}/>
             <Pagination totalPages={totalPages}/>
         </div>
     )

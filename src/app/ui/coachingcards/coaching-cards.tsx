@@ -1,11 +1,21 @@
-import { fetchPeople, fetchClientPages } from "@/app/lib/data";
+import { fetchPeople, fetchClientPages, fetchFilteredClients } from "@/app/lib/data";
 
-export default async function AllClients() {
-    const clients = await fetchPeople()
+export default async function AllClients({
+    query,
+    currentPage,
+}: {
+    query: string,
+    currentPage: number
+}) {
+    const clients = await fetchFilteredClients(query, currentPage)
     console.log(clients)
     return (
         <div>
-            <p>clients</p>
+            <div className="flex justify-between text-left m-4">
+                <p className="w-1/3">Client name</p>
+                <p>Age</p>
+                <p>Weight</p>
+            </div>
             {clients ? clients.map((client, index) => {
                 return (
                     <div

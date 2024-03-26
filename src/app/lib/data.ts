@@ -14,7 +14,42 @@ export async function fetchPeople() {
     }
 }
 
+type Client = {
+    id: string;
+    firstname: string;
+    lastname: string;
+    age: string;
+    weight: string;
+}
+
 const itemsPerPage = 10
+export async function fetchFilteredClients(
+    query: string,
+    currentPage: number,
+) {
+    noStore()
+    const offset = (currentPage - 1) * itemsPerPage
+
+    try {
+        const fetchedClients = await sql<Client>`
+            SELECT
+                h4clients.firstname,
+                h4clients.lastname,
+                h4clients.age,
+                h4clients.weight
+            FROM h4clients
+            WHERE
+                h4clients.firstname ILIKE ${`%${query}%`} OR
+                h4clients.lastname ILIKE ${`%${query}%`}
+            LIMIT ${itemsPerPage} OFFSET ${offset}
+        `
+        return fetchedClients.rows
+    } catch(err) {
+        console.error("error: ", err)
+        throw new Error("Failed to fetch and filter clients.")
+    }
+}
+
 export async function fetchClientPages(query: string) {
     noStore()
 

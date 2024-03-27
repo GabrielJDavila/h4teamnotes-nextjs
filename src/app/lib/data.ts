@@ -2,6 +2,28 @@ import { sql } from "@vercel/postgres";
 import { unstable_noStore as noStore } from "next/cache";
 import { Clients } from "./definitions";
 
+type Client = {
+    id: string;
+    firstname: string;
+    lastname: string;
+    age: string;
+    weight: string;
+}
+
+// export async function addClient(c) {
+//     noStore()
+
+//     try {
+//         const insertedClients = await sql<Client>`
+//                 INSERT INTO h4clients (firstname, lastname, age, weight)
+//                 VALUES (${person.firstName}, ${person.lastName}, ${person.age}, ${person.weight})
+//                 ON CONFLICT (id) DO NOTHING
+//                 `
+//         )
+//         console.log(`Seeded ${insertedClients.length} clients`)
+//     }
+// }
+
 export async function fetchPeople() {
     noStore()
 
@@ -14,13 +36,11 @@ export async function fetchPeople() {
     }
 }
 
-type Client = {
-    id: string;
-    firstname: string;
-    lastname: string;
-    age: string;
-    weight: string;
-}
+
+// WHERE
+//                 h4clients.firstname ILIKE ${`%${query}%`} OR
+//                 h4clients.lastname ILIKE ${`%${query}%`}
+//             LIMIT ${itemsPerPage} OFFSET ${offset}
 
 const itemsPerPage = 10
 export async function fetchFilteredClients(
@@ -38,10 +58,6 @@ export async function fetchFilteredClients(
                 h4clients.age,
                 h4clients.weight
             FROM h4clients
-            WHERE
-                h4clients.firstname ILIKE ${`%${query}%`} OR
-                h4clients.lastname ILIKE ${`%${query}%`}
-            LIMIT ${itemsPerPage} OFFSET ${offset}
         `
         return fetchedClients.rows
     } catch(err) {

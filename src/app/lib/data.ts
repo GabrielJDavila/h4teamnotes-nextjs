@@ -58,6 +58,7 @@ export async function fetchFilteredClients(
                 h4clients.age,
                 h4clients.weight
             FROM h4clients
+            LIMIT ${itemsPerPage} OFFSET ${offset}
         `
         return fetchedClients.rows
     } catch(err) {

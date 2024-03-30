@@ -26,4 +26,5 @@ export async function createClient(formData: FormData) {
         INSERT INTO h4clients (firstname, lastname, age, weight)
         VALUES (${firstname}, ${lastname}, ${age}, ${weight})
     `
+    revalidatePath("/dashboard/coachingcards")
 }

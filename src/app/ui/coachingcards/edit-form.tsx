@@ -2,15 +2,20 @@
 import { Clients } from "@/app/lib/definitions"
 import { Button } from "../button"
 import { UserCircleIcon } from "@heroicons/react/24/outline"
+import { updateClient } from "@/app/lib/actions"
 
 export default function EditClientCard({clientinfo}: {clientinfo: Clients}) {
+
+    const updateClientCard = updateClient.bind(null, clientinfo.id)
+
     return (
-        <form >
+        <form action={updateClientCard} >
             <div className="mb-4">
                 <label htmlFor="firstname" className="mb-2 block text-sm font-medium">
                     Client name
                 </label>
                 <div className="flex">
+                    <input type="hidden" name="id" defaultValue={clientinfo.id} />
                     <div className="relative w-1/2">
                         <input
                             id="firstname"
@@ -75,7 +80,7 @@ export default function EditClientCard({clientinfo}: {clientinfo: Clients}) {
                     <p className="flex h-10 items-center rounded-lg bg-gray-100 px-4 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-200">
                         Cancel
                     </p>
-                    <Button type="submit">confirm add client</Button>
+                    <Button type="submit">Confirm edit</Button>
                 </div>
             </div>
         </form>

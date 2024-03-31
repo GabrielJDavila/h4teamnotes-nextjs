@@ -92,7 +92,11 @@ export async function fetchClientById(id: string) {
             FROM h4clients
             WHERE h4clients.id = ${id}
         `
-        return data.rows
+        // const clientinfo = data.rows.map(client => ({
+        //     ...client
+        // }))
+        // return clientinfo[0]
+        return data.rows[0]
     } catch(err) {
         console.error("error: ", err)
         throw new Error(`failed to fetch client ${id}`)

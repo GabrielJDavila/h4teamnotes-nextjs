@@ -1,6 +1,7 @@
+
 import { fetchPeople, fetchClientPages, fetchFilteredClients } from "@/app/lib/data";
 import { Button } from "../button";
-import { PencilSquareIcon } from "@heroicons/react/24/outline";
+import { PencilSquareIcon, EyeIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 
 export default async function AllClients({
@@ -10,14 +11,18 @@ export default async function AllClients({
     query: string,
     currentPage: number
 }) {
+    // const [openView, setOpenView] = useState(false)
+
     const clients = await fetchFilteredClients(query, currentPage)
     console.log(clients)
+
+    // function handleViewClient() {
+    //     setOpenView(prev => !prev)
+    // }
     return (
         <div>
             <div className="flex justify-between text-left m-4">
                 <p className="w-1/3">Client name</p>
-                <p>Age</p>
-                <p>Weight</p>
             </div>
             {clients ? clients.map((client, index) => {
                 return (
@@ -28,6 +33,10 @@ export default async function AllClients({
                             <p className="w-1/3">{client.firstname} {client.lastname}</p>
                             <p>age: {client.age}</p>
                             <p>weight: {client.weight}</p>
+                            <EyeIcon
+                                // onClick={handleViewClient}
+                                className="h-[18px] w-[18px] text-gray-500 peer-focus:text-gray-900"
+                            />
                             <Link href={`/dashboard/coachingcards/${client.id}/edit`}>
                             <PencilSquareIcon
                                 className="h-[18px] w-[18px] text-gray-500 peer-focus:text-gray-900"

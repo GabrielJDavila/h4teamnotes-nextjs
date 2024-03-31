@@ -3,6 +3,7 @@ import { Clients } from "@/app/lib/definitions"
 import { Button } from "../button"
 import { UserCircleIcon } from "@heroicons/react/24/outline"
 import { updateClient } from "@/app/lib/actions"
+import Link from "next/link"
 
 export default function EditClientCard({clientinfo}: {clientinfo: Clients}) {
 
@@ -72,14 +73,33 @@ export default function EditClientCard({clientinfo}: {clientinfo: Clients}) {
                         />
                     </div>
                 </div>
+
+                <label htmlFor="note" className="mb-2 block text-sm font-medium">
+                        Note
+                    </label>
+                    <div className="flex">
+                        <div className="relative w-full">
+                            <textarea
+                                id="note"
+                                name="note"
+                                placeholder="Note (optional)"
+                                className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500 w-full"
+                                // defaultValue={clientinfo.note}
+                            ></textarea>
+                        </div>
+
+                    </div>
                     
                 <div id="add-client-error">
                     {}
                 </div>
                 <div className="mt-6 flex justify-end gap-4">
-                    <p className="flex h-10 items-center rounded-lg bg-gray-100 px-4 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-200">
+                    <Link
+                        href="/dashboard/coachingcards"
+                        className="flex h-10 items-center rounded-lg bg-gray-100 px-4 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-200"
+                    >
                         Cancel
-                    </p>
+                    </Link>
                     <Button type="submit">Confirm edit</Button>
                 </div>
             </div>

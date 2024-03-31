@@ -3,7 +3,7 @@
 import { z } from "zod"
 import { sql } from "@vercel/postgres"
 import { revalidatePath } from "next/cache"
-import { redirect } from "next/dist/server/api-utils"
+import { redirect } from "next/navigation"
 
 const FormSchema = z.object({
     firstname: z.string(),
@@ -27,4 +27,5 @@ export async function createClient(formData: FormData) {
         VALUES (${firstname}, ${lastname}, ${age}, ${weight})
     `
     revalidatePath("/dashboard/coachingcards")
+    redirect("/dashboard/coachingcards")
 }

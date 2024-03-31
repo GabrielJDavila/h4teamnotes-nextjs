@@ -53,17 +53,49 @@ export async function fetchFilteredClients(
     try {
         const fetchedClients = await sql<Client>`
             SELECT
+                h4clients.id,
                 h4clients.firstname,
                 h4clients.lastname,
                 h4clients.age,
                 h4clients.weight
             FROM h4clients
+            ORDER BY h4clients.firstname ASC
             LIMIT ${itemsPerPage} OFFSET ${offset}
         `
         return fetchedClients.rows
     } catch(err) {
         console.error("error: ", err)
         throw new Error("Failed to fetch and filter clients.")
+    }
+}
+
+// export async function fetchClient() {
+//     try {
+//        const data = await sql<Client>`
+//         SELECT
+//             h4clients.id,
+
+//        ` 
+//     }
+// }
+
+export async function fetchClientById(id: string) {
+    noStore()
+    try {
+        const data = await sql<Client>`
+            SELECT
+                h4clients.id,
+                h4clients.firstname,
+                h4clients.lastname,
+                h4clients.age,
+                h4clients.weight
+            FROM h4clients
+            WHERE h4clients.id = ${id}
+        `
+        return data.rows
+    } catch(err) {
+        console.error("error: ", err)
+        throw new Error(`failed to fetch client ${id}`)
     }
 }
 

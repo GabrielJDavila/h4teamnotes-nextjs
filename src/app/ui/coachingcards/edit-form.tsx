@@ -2,7 +2,7 @@
 import { useState } from "react"
 import { Clients } from "@/app/lib/definitions"
 import { Button } from "../button"
-import { UserCircleIcon, PencilSquareIcon } from "@heroicons/react/24/outline"
+import { UserCircleIcon, PencilSquareIcon, ArrowUturnLeftIcon } from "@heroicons/react/24/outline"
 import { updateClient } from "@/app/lib/actions"
 import Link from "next/link"
 
@@ -18,56 +18,78 @@ export default function EditClientCard({clientinfo}: {clientinfo: Clients}) {
         <div>
             {!openEdit ?
             <div>
-                <div className="mb-4">
-                    <h3 className="mb-2 block text-sm font-medium">
-                        Client name
-                    </h3>
-                    <div className="flex">
-                        <input type="hidden" name="id" defaultValue={clientinfo.id} />
-                        <div className="relative w-1/2">
-                            <p
-                                className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
-                            >
-                                {clientinfo.firstname}</p>
-                            <UserCircleIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500" />
-                        </div>
-                        <div className="relative w-1/2">
-                            <p
-                                className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"   
-                            >
-                                {clientinfo.lastname}
-                            </p>
+                <div className="mb-4 flex flex-col gap-4">
+                    <div>
+                        <h3 className="mb-2 block text-sm font-medium">
+                            Client name
+                        </h3>
+                        <div className="flex gap-4">
+                            <div className="relative w-1/2">
+                                <p
+                                    className="peer w-full block border-b border-gray-200 py-2 pl-10 text-sm"
+                                >
+                                    {clientinfo.firstname}</p>
+                                <UserCircleIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500" />
+                            </div>
+                            <div className="relative w-1/2">
+                                <p
+                                    className="peer w-full block border-b border-gray-200 py-2 pl-10 text-sm"   
+                                >
+                                    {clientinfo.lastname}
+                                </p>
+                            </div>
                         </div>
                     </div>
+                    <div>
                     <h3 className="mb-2 block text-sm font-medium">
                         Client info
                     </h3>
-                    <div className="flex">
-                        
-                        <div className="relative w-1/2">
-                            <p
-                                className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
-                            >
-                                {clientinfo.age}</p>
-                        </div>
-                        <div className="relative w-1/2">
-                            <p
-                                className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"   
-                            >
-                                {clientinfo.weight}
-                            </p>
+                        <div className="flex gap-4">
+                            
+                            <div className="relative w-1/2">
+                                <p
+                                    className="peer block w-full border-b border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+                                >
+                                    {clientinfo.age}
+                                </p>
+                            </div>
+                            <div className="relative w-1/2">
+                                <p
+                                    className="peer block w-full border-b border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"   
+                                >
+                                    {clientinfo.weight}
+                                </p>
+                            </div>
                         </div>
                     </div>
-
+                    <div>
+                        <h3 className="mb-2 block text-sm font-medium">
+                            Note
+                        </h3>
+                        <div className="flex">
+                            <div className="relative w-full">
+                                <p
+                                    className="resize-none peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500 h-100"
+                                >
+                                    {clientinfo.note ? clientinfo.note : "no note available"}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
                     
                     <div className="mt-6 flex justify-end gap-4">
                         <Link
                             href="/dashboard/coachingcards"
-                            className="flex h-10 items-center rounded-lg bg-gray-100 px-4 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-200"
+                            className="flex gap-2 h-10 items-center rounded-lg bg-gray-100 px-4 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-200"
                         >
-                            Go back
+                            <ArrowUturnLeftIcon className="h-[18px] w-[18px] text-gray-500 peer-focus:text-gray-900"/>
+                            Back
                         </Link>
-                        <PencilSquareIcon className="h-[18px] w-[18px] text-gray-500 peer-focus:text-gray-900" onClick={handleEditView}/>
+                        <Button className="gap-2" onClick={handleEditView}>
+                            Edit
+                            <PencilSquareIcon className="h-[18px] w-[18px] text-white-100 peer-focus:text-gray-900"/>
+                        </Button>
+                        
                     </div>
                 </div>
             </div>
@@ -139,29 +161,28 @@ export default function EditClientCard({clientinfo}: {clientinfo: Clients}) {
                     <label htmlFor="note" className="mb-2 block text-sm font-medium">
                             Note
                     </label>
-                        <div className="flex">
-                            <div className="relative w-full">
-                                <textarea
-                                    id="note"
-                                    name="note"
-                                    placeholder="Note (optional)"
-                                    className="resize-none peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500 h-100"
-                                    defaultValue={clientinfo.note}
-                                ></textarea>
-                            </div>
-
+                    <div className="flex">
+                        <div className="relative w-full">
+                            <textarea
+                                id="note"
+                                name="note"
+                                placeholder="Note (optional)"
+                                className="resize-none peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500 h-100"
+                                defaultValue={clientinfo.note}
+                            ></textarea>
                         </div>
+                    </div>
                         
                     {/* <div id="add-client-error">
                         {}
                     </div> */}
                     <div className="mt-6 flex justify-end gap-4">
-                        <Link
-                            href="/dashboard/coachingcards"
+                        <button
+                            onClick={handleEditView}
                             className="flex h-10 items-center rounded-lg bg-gray-100 px-4 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-200"
                         >
                             Cancel
-                        </Link>
+                        </button>
                         <Button type="submit">Confirm edit</Button>
                     </div>
                 </div>

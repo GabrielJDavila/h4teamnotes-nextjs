@@ -11,37 +11,16 @@ type Client = {
     note: string;
 }
 
-// export async function addClient(c) {
-//     noStore()
-
-//     try {
-//         const insertedClients = await sql<Client>`
-//                 INSERT INTO h4clients (firstname, lastname, age, weight)
-//                 VALUES (${person.firstName}, ${person.lastName}, ${person.age}, ${person.weight})
-//                 ON CONFLICT (id) DO NOTHING
-//                 `
-//         )
-//         console.log(`Seeded ${insertedClients.length} clients`)
-//     }
-// }
-
 export async function fetchPeople() {
     noStore()
 
     try {
-        // await new Promise((resolve) => setTimeout(resolve, 1000))
         const data = await sql<Clients>`SELECT * FROM h4clients`
         return data.rows
     } catch(err) {
 
     }
 }
-
-
-// WHERE
-//                 h4clients.firstname ILIKE ${`%${query}%`} OR
-//                 h4clients.lastname ILIKE ${`%${query}%`}
-//             LIMIT ${itemsPerPage} OFFSET ${offset}
 
 const itemsPerPage = 10
 export async function fetchFilteredClients(
@@ -70,16 +49,6 @@ export async function fetchFilteredClients(
     }
 }
 
-// export async function fetchClient() {
-//     try {
-//        const data = await sql<Client>`
-//         SELECT
-//             h4clients.id,
-
-//        ` 
-//     }
-// }
-
 export async function fetchClientById(id: string) {
     noStore()
     try {
@@ -94,10 +63,6 @@ export async function fetchClientById(id: string) {
             FROM h4clients
             WHERE h4clients.id = ${id}
         `
-        // const clientinfo = data.rows.map(client => ({
-        //     ...client
-        // }))
-        // return clientinfo[0]
         return data.rows[0]
     } catch(err) {
         console.error("error: ", err)

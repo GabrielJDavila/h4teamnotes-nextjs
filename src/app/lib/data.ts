@@ -8,6 +8,7 @@ type Client = {
     lastname: string;
     age: string;
     weight: string;
+    note: string;
 }
 
 // export async function addClient(c) {
@@ -88,7 +89,8 @@ export async function fetchClientById(id: string) {
                 h4clients.firstname,
                 h4clients.lastname,
                 h4clients.age,
-                h4clients.weight
+                h4clients.weight,
+                h4clients.note
             FROM h4clients
             WHERE h4clients.id = ${id}
         `

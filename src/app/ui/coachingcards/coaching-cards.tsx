@@ -3,6 +3,7 @@ import { fetchPeople, fetchClientPages, fetchFilteredClients } from "@/app/lib/d
 import { Button } from "../button";
 import { PencilSquareIcon, EyeIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
+import { Clients } from "@/app/lib/definitions";
 
 export default async function AllClients({
     query,

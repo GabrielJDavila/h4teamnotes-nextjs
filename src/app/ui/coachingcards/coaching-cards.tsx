@@ -12,14 +12,9 @@ export default async function AllClients({
     query: string,
     currentPage: number
 }) {
-    // const [openView, setOpenView] = useState(false)
 
     const clients = await fetchFilteredClients(query, currentPage)
-    console.log(clients)
-
-    // function handleViewClient() {
-    //     setOpenView(prev => !prev)
-    // }
+    
     return (
         <div>
             <div className="flex justify-between text-left m-4">

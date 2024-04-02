@@ -4,8 +4,8 @@ import Link from "next/link"
 import { UserCircleIcon } from "@heroicons/react/24/outline"
 import { Button } from "../button"
 import { useFormState } from "react-dom"
-import { Clients } from "@/app/lib/definitions"
-import { createClient } from "@/app/lib/actions"
+// import { Clients } from "@/app/lib/definitions"
+// import { createClient } from "@/app/lib/actions"
 
 export default function Form() {
     const initialState = {message: null, error: {}}
@@ -13,30 +13,28 @@ export default function Form() {
     function handleClick() {
         setShowForm(prev => !prev)
     }
-    
     return (
         <div className="mt-4 mb-8">
-            {!showForm && <Button onClick={handleClick}>Add client +</Button>}
+            {!showForm && <Button onClick={handleClick}>Add new note +</Button>}
             
             {showForm &&
-            <form action={createClient}>
+            <form>
                 <div className="mb-4">
-                    <label htmlFor="firstname" className="mb-2 block text-sm font-medium">
-                        Client name
-                    </label>
-                    <div className="flex">
-                        <div className="relative w-1/2">
+                    
+                    <div className="relative flex flex-col">
+                        <label htmlFor="firstname" className="mb-2 block text-sm font-medium">
+                            User name
+                        </label>
                             <input
                                 id="firstname"
                                 name="firstname"
                                 type="text"
-                                placeholder="First name"
+                                placeholder="user"
                                 className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
                                 aria-describedby="add-client-error"
                             />
-                            <UserCircleIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500" />
-                        </div>
-                        <div className="relative w-1/2">
+                            {/* <UserCircleIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500" /> */}
+                        {/* <div className="relative w-1/2">
                             <input
                                 id="lastname"
                                 name="lastname"
@@ -45,37 +43,36 @@ export default function Form() {
                                 className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
                                 aria-describedby="add-client-error"
                             />
-                        </div>
+                        </div> */}
                     </div>
                     
                     <div id="add-client-error">
                         {}
                     </div>
 
-                    <label htmlFor="age" className="mb-2 block text-sm font-medium">
-                        Client info
-                    </label>
-                    <div className="flex">
-                        <div className="relative w-1/2">
+                    <div className="relative flex flex-col">
+                        <label htmlFor="firstname" className="mb-2 block text-sm font-medium">
+                            date
+                        </label>
                             <input
-                                id="age"
-                                name="age"
-                                type="text"
-                                placeholder="Age"
-                                className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
-                                aria-describedby="add-age-error"
-                            />
-                        </div>
-                        <div className="relative w-1/2">
-                            <input
-                                id="weight"
-                                name="weight"
-                                type="text"
-                                placeholder="Weight"
+                                id="firstname"
+                                name="firstname"
+                                type="date"
+                                placeholder="First name"
                                 className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
                                 aria-describedby="add-client-error"
                             />
-                        </div>
+                           
+                        {/* <div className="relative w-1/2">
+                            <input
+                                id="lastname"
+                                name="lastname"
+                                type="text"
+                                placeholder="Last name"
+                                className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+                                aria-describedby="add-client-error"
+                            />
+                        </div> */}
                     </div>
                     
                     <div id="add-client-error">

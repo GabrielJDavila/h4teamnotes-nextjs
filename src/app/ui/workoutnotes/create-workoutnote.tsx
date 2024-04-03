@@ -5,7 +5,7 @@ import { UserCircleIcon } from "@heroicons/react/24/outline"
 import { Button } from "../button"
 import { useFormState } from "react-dom"
 // import { Clients } from "@/app/lib/definitions"
-// import { createClient } from "@/app/lib/actions"
+import { createWorkoutNote } from "@/app/lib/actions"
 
 export default function Form() {
     const initialState = {message: null, error: {}}
@@ -18,16 +18,16 @@ export default function Form() {
             {!showForm && <Button onClick={handleClick}>Add new note +</Button>}
             
             {showForm &&
-            <form>
+            <form action={createWorkoutNote}>
                 <div className="mb-4">
                     
                     <div className="relative flex flex-col">
-                        <label htmlFor="firstname" className="mb-2 block text-sm font-medium">
+                        <label htmlFor="user" className="mb-2 block text-sm font-medium">
                             User name
                         </label>
                             <input
-                                id="firstname"
-                                name="firstname"
+                                id="user"
+                                name="user"
                                 type="text"
                                 placeholder="user"
                                 className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
@@ -51,14 +51,13 @@ export default function Form() {
                     </div>
 
                     <div className="relative flex flex-col">
-                        <label htmlFor="firstname" className="mb-2 block text-sm font-medium">
-                            date
+                        <label htmlFor="date" className="mb-2 block text-sm font-medium">
+                            Date
                         </label>
                             <input
-                                id="firstname"
-                                name="firstname"
+                                id="date"
+                                name="date"
                                 type="date"
-                                placeholder="First name"
                                 className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
                                 aria-describedby="add-client-error"
                             />
@@ -96,7 +95,7 @@ export default function Form() {
                         <p onClick={handleClick} className="flex h-10 items-center rounded-lg bg-gray-100 px-4 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-200">
                             Cancel
                         </p>
-                        <Button type="submit">confirm add client</Button>
+                        <Button type="submit">confirm and add note</Button>
                     </div>
                 </div>
             </form>

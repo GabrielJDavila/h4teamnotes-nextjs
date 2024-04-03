@@ -6,3 +6,10 @@ export type Clients = {
     age: string,
     note: string
 }
+
+export type Notes = {
+    id: string,
+    user: string,
+    date: string,
+    note: string
+}

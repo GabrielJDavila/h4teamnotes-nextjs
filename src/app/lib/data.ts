@@ -11,6 +11,13 @@ type Client = {
     note: string;
 }
 
+type WorkoutNote = {
+    id: string;
+    username: string;
+    date: string;
+    note: string;
+}
+
 export async function fetchPeople() {
     noStore()
 
@@ -85,5 +92,31 @@ export async function fetchClientPages(query: string) {
     } catch(err) {
         console.error("Database error: ", err)
         throw new Error("failed to fetch total number of clients")
+    }
+}
+
+// workout notes fetching functions
+export async function fetchWorkoutNotes(
+    // query: string,
+    // currentPage: number,
+) {
+    noStore()
+    // const offset = (currentPage - 1) * itemsPerPage
+    // LIMIT ${itemsPerPage} OFFSET ${offset}
+    try {
+        const fetchedNotes = await sql<WorkoutNote>`
+            SELECT
+                workoutnotes.id,
+                workoutnotes.username,
+                workoutnotes.date,
+                workoutnotes.note
+            FROM workoutnotes
+            ORDER BY workoutnotes.date ASC
+            
+        `
+        return fetchedNotes.rows
+    } catch(err) {
+        console.error("error: ", err)
+        throw new Error("Failed to fetch workout notes.")
     }
 }

@@ -9,7 +9,7 @@ export type Clients = {
 
 export type Notes = {
     id: string,
-    user: string,
+    username: string,
     date: string,
     note: string
 }

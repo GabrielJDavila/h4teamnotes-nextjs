@@ -89,3 +89,21 @@ export async function createWorkoutNote(formData: FormData) {
     revalidatePath("/dashboard/workoutnotes")
     redirect("/dashboard/workoutnotes")
 }
+
+export async function updateWorkoutNote(noteId: string, formData: FormData) {
+    const { user, date, note } = CreateWorkoutNote.parse({
+        user: formData.get("user"),
+        date: formData.get("date"),
+        note: formData.get("note")
+    })
+    await sql`
+        UPDATE workoutnotes
+        SET
+            username = ${user},
+            date = ${date},
+            note = ${note}
+        WHERE id = ${noteId}    
+    `
+    revalidatePath("/dashboard/workoutnotes")
+    redirect("/dashboard/workoutnotes")
+}

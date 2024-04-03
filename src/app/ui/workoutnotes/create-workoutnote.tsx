@@ -33,17 +33,6 @@ export default function Form() {
                                 className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
                                 aria-describedby="add-client-error"
                             />
-                            {/* <UserCircleIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500" /> */}
-                        {/* <div className="relative w-1/2">
-                            <input
-                                id="lastname"
-                                name="lastname"
-                                type="text"
-                                placeholder="Last name"
-                                className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
-                                aria-describedby="add-client-error"
-                            />
-                        </div> */}
                     </div>
                     
                     <div id="add-client-error">
@@ -61,17 +50,6 @@ export default function Form() {
                                 className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
                                 aria-describedby="add-client-error"
                             />
-                           
-                        {/* <div className="relative w-1/2">
-                            <input
-                                id="lastname"
-                                name="lastname"
-                                type="text"
-                                placeholder="Last name"
-                                className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
-                                aria-describedby="add-client-error"
-                            />
-                        </div> */}
                     </div>
                     
                     <div id="add-client-error">

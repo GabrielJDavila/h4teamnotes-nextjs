@@ -111,12 +111,31 @@ export async function fetchWorkoutNotes(
                 workoutnotes.date,
                 workoutnotes.note
             FROM workoutnotes
-            ORDER BY workoutnotes.date ASC
+            ORDER BY workoutnotes.date DESC
             
         `
         return fetchedNotes.rows
     } catch(err) {
         console.error("error: ", err)
         throw new Error("Failed to fetch workout notes.")
+    }
+}
+
+export async function fetchWorkoutNoteById(id: string) {
+    noStore()
+    try {
+        const data = await sql<WorkoutNote>`
+            SELECT
+                workoutnotes.id,
+                workoutnotes.username,
+                workoutnotes.date,
+                workoutnotes.note
+            FROM workoutnotes
+            WHERE workoutnotes.id = ${id}
+        `
+        return data.rows[0]
+    } catch(err) {
+        console.error("error: ", err)
+        throw new Error(`failed to fetch client ${id}`)
     }
 }

@@ -15,11 +15,6 @@ export default function Form({workoutnote}: {workoutnote: Notes}) {
     const updateNoteCard = updateWorkoutNote.bind(null, workoutnote.id)
     const deleteNoteCard = deleteWorkoutNote.bind(null, workoutnote.id)
 
-    // function updateNoteCard() {
-    //     console.log("works")
-    //     updateWorkoutNote.bind(null, workoutnote.id)
-    // }
-
     function handleOpenDeleteModal() {
         setopenDeleteModal(prev => !prev)
     }
@@ -152,10 +147,6 @@ export default function Form({workoutnote}: {workoutnote: Notes}) {
                 <form action={deleteNoteCard} className="absolute border border-gray-200 bg-white p-8 text-center flex flex-col items-center gap-4 top-0 bottom-0 right-0 left-0 shadow-lg rounded-lg">
                     <h2>Confirm Deletion</h2>
                     <p>Are you sure you want to delete this note?</p>
-                    {/* <input type="hidden" name="id" defaultValue={workoutnote.id} />
-                    <input type="hidden" name="id" defaultValue={workoutnote.username} />
-                    <input type="hidden" name="id" defaultValue={workoutnote.date} />
-                    <input type="hidden" name="id" defaultValue={workoutnote.note} /> */}
                     <div className="flex items-center gap-4">
                         <p onClick={handleOpenDeleteModal} className="flex h-10 items-center rounded-lg bg-gray-100 px-4 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-200">
                             Cancel

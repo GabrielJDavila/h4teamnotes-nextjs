@@ -109,11 +109,6 @@ export async function updateWorkoutNote(noteId: string, formData: FormData) {
 }
 
 export async function deleteWorkoutNote(noteId: string, formData: FormData) {
-    // const { user, date, note } = CreateWorkoutNote.parse({
-    //     user: formData.get("user"),
-    //     date: formData.get("date"),
-    //     note: formData.get("note")
-    // })
     await sql`
         DELETE FROM workoutnotes
         WHERE id = ${noteId}

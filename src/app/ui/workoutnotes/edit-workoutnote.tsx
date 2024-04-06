@@ -144,7 +144,7 @@ export default function Form({workoutnote}: {workoutnote: Notes}) {
             </form>
             }
             {openDeleteModal &&
-                <form action={deleteNoteCard} className="absolute border border-gray-200 bg-white p-8 text-center flex flex-col items-center gap-4 top-0 bottom-0 right-0 left-0 shadow-lg rounded-lg">
+                <form action={deleteNoteCard} className="absolute z-20 h-52 border border-gray-200 bg-white p-8 text-center flex flex-col items-center gap-4 top-0 bottom-0 right-0 left-0 shadow-lg rounded-lg m-auto">
                     <h2>Confirm Deletion</h2>
                     <p>Are you sure you want to delete this note?</p>
                     <div className="flex items-center gap-4">
@@ -154,6 +154,9 @@ export default function Form({workoutnote}: {workoutnote: Notes}) {
                         <Button type="submit">confirm</Button>
                     </div>
                 </form>
+            }
+            {openDeleteModal &&
+                <div className="absolute h-screen bg-white z-10 top-0 bottom-0 right-0 left-0"></div>
             }
         </div>
     )

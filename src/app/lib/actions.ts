@@ -74,6 +74,17 @@ export async function updateClient(clientId: string, formData: FormData) {
     redirect("/dashboard/coachingcards")
 }
 
+export async function deleteClient(clientId: string, formData: FormData) {
+    await sql`
+        DELETE FROM h4clients
+        WHERE id = ${clientId}
+    `
+    revalidatePath("/dashboard/coachingcards")
+    redirect("/dashboard/coachingcards")
+}
+
+// workoutnotes actions
+
 export async function createWorkoutNote(formData: FormData) {
     const { user, date, note } = CreateWorkoutNote.parse({
         user: formData.get("user"),

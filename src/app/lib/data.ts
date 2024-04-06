@@ -46,6 +46,9 @@ export async function fetchFilteredClients(
                 h4clients.age,
                 h4clients.weight
             FROM h4clients
+            WHERE
+                h4clients.firstname ILIKE ${`%${query}%`} OR
+                h4clients.lastname ILIKE ${`%${query}%`}
             ORDER BY h4clients.firstname ASC
             LIMIT ${itemsPerPage} OFFSET ${offset}
         `

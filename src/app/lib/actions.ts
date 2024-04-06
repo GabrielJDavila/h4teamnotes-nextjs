@@ -40,7 +40,6 @@ export async function createClient(formData: FormData) {
         weight: formData.get("weight"),
         note: formData.get("note")
     })
-
     await sql`
         INSERT INTO h4clients (firstname, lastname, age, weight, note)
         VALUES (${firstname}, ${lastname}, ${age}, ${weight}, ${note})

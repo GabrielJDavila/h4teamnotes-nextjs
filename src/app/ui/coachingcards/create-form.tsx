@@ -1,5 +1,5 @@
 "use client"
-import { useState } from "react"
+import { useState, useRef } from "react"
 import Link from "next/link"
 import { UserCircleIcon } from "@heroicons/react/24/outline"
 import { Button } from "../button"
@@ -10,27 +10,27 @@ import { createClient } from "@/app/lib/actions"
 export default function Form() {
     const initialState = {message: null, error: {}}
     const [showForm, setShowForm] = useState(false)
-    // const ref = useRef<HTMLFormElement>(null)
+    const ref = useRef<HTMLFormElement>(null)
 
     function handleClick() {
         setShowForm(prev => !prev)
     }
 
-    // async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-    //     event.preventDefault()
-    //     const formData = new FormData(event.currentTarget)
-    //     await createClient(formData)
-    //     if(ref.current) {
-    //         ref.current.reset()
-    //     }
-    // }
+    async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+        event.preventDefault()
+        const formData = new FormData(event.currentTarget)
+        await createClient(formData)
+        if(ref.current) {
+            ref.current.reset()
+        }
+    }
     
     return (
         <div className="mt-4 mb-8">
             {!showForm && <Button onClick={handleClick}>Add client +</Button>}
             
             {showForm &&
-            <form action={createClient}>
+            <form ref={ref} onSubmit={handleSubmit}>
                 <div className="mb-4">
                     <label htmlFor="firstname" className="mb-2 block text-sm font-medium">
                         Client name

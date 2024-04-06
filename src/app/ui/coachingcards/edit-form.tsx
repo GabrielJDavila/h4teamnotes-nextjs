@@ -190,7 +190,7 @@ export default function EditClientCard({clientinfo}: {clientinfo: Clients}) {
             {openDeleteModal &&
                 <form action={deleteClientCard} className="absolute z-20 h-44 border border-gray-200 bg-white p-8 text-center flex flex-col items-center gap-4 top-0 bottom-0 right-0 left-0 shadow-lg rounded-lg m-auto">
                     <div className="m-auto text-center flex flex-col items-center gap-8">
-                        <h2>Are you sure you want to delete <strong>{clientinfo.firstname} {clientinfo.lastname}'s</strong> card?</h2>
+                        <h2>{`Are you sure you want to delete ${clientinfo.firstname} ${clientinfo.lastname}'s card?`}</h2>
                         <div className="flex text-center items-center gap-4">
                             <p onClick={handleOpenDeleteModal} className="flex h-10 items-center rounded-lg bg-gray-100 px-4 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-200">
                                 Cancel

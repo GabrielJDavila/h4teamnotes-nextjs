@@ -4,20 +4,31 @@ import Link from "next/link"
 import { ArrowUturnLeftIcon, PencilSquareIcon } from "@heroicons/react/24/outline"
 import { Button } from "../button"
 import { useFormState } from "react-dom"
-import { createWorkoutNote, updateWorkoutNote } from "@/app/lib/actions"
+import { createWorkoutNote, updateWorkoutNote, deleteWorkoutNote } from "@/app/lib/actions"
 import { Notes } from "@/app/lib/definitions"
 
 export default function Form({workoutnote}: {workoutnote: Notes}) {
     const initialState = {message: null, error: {}}
     const [openEdit, setOpenEdit] = useState(false)
+    const [openDeleteModal, setopenDeleteModal] = useState(false)
 
     const updateNoteCard = updateWorkoutNote.bind(null, workoutnote.id)
+    const deleteNoteCard = deleteWorkoutNote.bind(null, workoutnote.id)
+
+    // function updateNoteCard() {
+    //     console.log("works")
+    //     updateWorkoutNote.bind(null, workoutnote.id)
+    // }
+
+    function handleOpenDeleteModal() {
+        setopenDeleteModal(prev => !prev)
+    }
 
     function handleEditView() {
         setOpenEdit(prev => !prev)
     }
     return (
-        <div className="mt-4 mb-8">
+        <div className="mt-4 mb-8 relative">
             
             {!openEdit ?
             <div>
@@ -76,7 +87,6 @@ export default function Form({workoutnote}: {workoutnote: Notes}) {
             </div> :
             <form action={updateNoteCard}>
                 <div className="mb-4">
-                    
                     <div className="relative flex flex-col">
                         <label htmlFor="user" className="mb-2 block text-sm font-medium">
                             Logged by
@@ -130,10 +140,29 @@ export default function Form({workoutnote}: {workoutnote: Notes}) {
                         <p onClick={handleEditView} className="flex h-10 items-center rounded-lg bg-gray-100 px-4 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-200">
                             Cancel
                         </p>
-                        <Button type="submit">confirm and edit note</Button>
+                        <p onClick={handleOpenDeleteModal} className="flex h-10 items-center rounded-lg bg-gray-100 px-4 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-200">
+                            Delete
+                        </p>
+                        <Button type="submit">confirm</Button>
                     </div>
                 </div>
             </form>
+            }
+            {openDeleteModal &&
+                <form action={deleteNoteCard} className="absolute border border-gray-200 bg-white p-8 text-center flex flex-col items-center gap-4 top-0 bottom-0 right-0 left-0 shadow-lg rounded-lg">
+                    <h2>Confirm Deletion</h2>
+                    <p>Are you sure you want to delete this note?</p>
+                    {/* <input type="hidden" name="id" defaultValue={workoutnote.id} />
+                    <input type="hidden" name="id" defaultValue={workoutnote.username} />
+                    <input type="hidden" name="id" defaultValue={workoutnote.date} />
+                    <input type="hidden" name="id" defaultValue={workoutnote.note} /> */}
+                    <div className="flex items-center gap-4">
+                        <p onClick={handleOpenDeleteModal} className="flex h-10 items-center rounded-lg bg-gray-100 px-4 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-200">
+                            Cancel
+                        </p>
+                        <Button type="submit">confirm</Button>
+                    </div>
+                </form>
             }
         </div>
     )

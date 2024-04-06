@@ -91,7 +91,6 @@ export async function createWorkoutNote(formData: FormData) {
         date: formData.get("date"),
         note: formData.get("note")
     })
-
     await sql`
         INSERT INTO workoutnotes (username, date, note)
         VALUES (${user}, ${date}, ${note})

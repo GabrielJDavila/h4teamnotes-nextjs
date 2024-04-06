@@ -22,6 +22,10 @@ export default function Form({workoutnote}: {workoutnote: Notes}) {
     function handleEditView() {
         setOpenEdit(prev => !prev)
     }
+
+    const [year, month, day] = workoutnote.date.split("-")
+    const formattedDate = `${month}-${day}-${year}`
+
     return (
         <div className="mt-4 mb-8 relative">
             
@@ -47,7 +51,7 @@ export default function Form({workoutnote}: {workoutnote: Notes}) {
                             Date
                         </h3>
                             <p className="peer block w-full rounded-md border-b border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500">
-                                {workoutnote.date}
+                                {month}-{day}-{year}
                             </p>
                     </div>
                     

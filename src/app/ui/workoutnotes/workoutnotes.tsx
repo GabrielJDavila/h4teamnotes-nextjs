@@ -4,8 +4,8 @@ import Link from "next/link";
 
 export default async function WorkoutNotes() {
     const notes = await fetchWorkoutNotes()
-    console.log(notes)
     const maxChars = 125
+    
     return (
         <div>
             <div className="flex justify-between text-left m-4">

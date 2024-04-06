@@ -1,5 +1,5 @@
 "use client"
-import { useState } from "react"
+import { useState, useRef } from "react"
 import Link from "next/link"
 import { UserCircleIcon } from "@heroicons/react/24/outline"
 import { Button } from "../button"
@@ -10,15 +10,26 @@ import { createWorkoutNote } from "@/app/lib/actions"
 export default function Form() {
     const initialState = {message: null, error: {}}
     const [showForm, setShowForm] = useState(false)
+    const ref = useRef<HTMLFormElement>(null)
     function handleClick() {
         setShowForm(prev => !prev)
     }
+
+    async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+        event.preventDefault()
+        const formData = new FormData(event.currentTarget)
+        await createWorkoutNote(formData)
+        if(ref.current) {
+            ref.current.reset()
+        }
+    }
+
     return (
         <div className="mt-4 mb-8">
             {!showForm && <Button onClick={handleClick}>Add new note +</Button>}
             
             {showForm &&
-            <form action={createWorkoutNote}>
+            <form ref={ref} onSubmit={handleSubmit}>
                 <div className="mb-4">
                     
                     <div className="relative flex flex-col">
@@ -32,6 +43,7 @@ export default function Form() {
                                 placeholder="user"
                                 className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
                                 aria-describedby="add-client-error"
+                                required
                             />
                     </div>
                     
@@ -49,6 +61,7 @@ export default function Form() {
                                 type="date"
                                 className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
                                 aria-describedby="add-client-error"
+                                required
                             />
                     </div>
                     
@@ -65,6 +78,7 @@ export default function Form() {
                                 name="note"
                                 placeholder="Note (optional)"
                                 className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500 w-full"
+                                required
                             ></textarea>
                         </div>
 

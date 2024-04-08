@@ -138,7 +138,33 @@ export async function createGymEventNote(formData: FormData) {
         INSERT INTO gymevents (username, date, note)
         VALUES (${user}, ${date}, ${note})
     `
+    revalidatePath("/dashboard/gymevents")
+    redirect("/dashboard/gymevents")
+}
 
+export async function updateGymEventNote(noteId: string, formData: FormData) {
+    const { user, date, note } = CreateNote.parse({
+        user: formData.get("user"),
+        date: formData.get("date"),
+        note: formData.get("note")
+    })
+    await sql`
+        UPDATE gymevents
+        SET
+            username = ${user},
+            date = ${date},
+            note = ${note}
+        WHERE id = ${noteId}
+    `
+    revalidatePath("/dashboard/gymevents")
+    redirect("/dashboard/gymevents")
+}
+
+export async function deleteGymEventNote(noteId: string, formData: FormData) {
+    await sql`
+        DELETE FROM gymevents
+        WHERE id = ${noteId}
+    `
     revalidatePath("/dashboard/gymevents")
     redirect("/dashboard/gymevents")
 }

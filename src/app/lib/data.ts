@@ -18,6 +18,8 @@ type Note = {
     note: string;
 }
 
+const itemsPerPage = 10
+
 export async function fetchPeople() {
     noStore()
 
@@ -29,7 +31,6 @@ export async function fetchPeople() {
     }
 }
 
-const itemsPerPage = 10
 export async function fetchFilteredClients(
     query: string,
     currentPage: number,
@@ -100,12 +101,12 @@ export async function fetchClientPages(query: string) {
 
 // workout notes fetching functions
 export async function fetchWorkoutNotes(
-    // query: string,
-    // currentPage: number,
+    query: string,
+    currentPage: number
 ) {
     noStore()
-    // const offset = (currentPage - 1) * itemsPerPage
-    // LIMIT ${itemsPerPage} OFFSET ${offset}
+    const offset = (currentPage - 1) * itemsPerPage
+    
     try {
         const fetchedNotes = await sql<Note>`
             SELECT
@@ -114,13 +115,32 @@ export async function fetchWorkoutNotes(
                 workoutnotes.date,
                 workoutnotes.note
             FROM workoutnotes
+            WHERE
+                workoutnotes.username ILIKE ${`%${query}%`} 
             ORDER BY workoutnotes.date DESC
-            
+            LIMIT ${itemsPerPage} OFFSET ${offset}
         `
         return fetchedNotes.rows
     } catch(err) {
         console.error("error: ", err)
         throw new Error("Failed to fetch workout notes.")
+    }
+}
+
+export async function fetchWorkoutNotePages(query: string) {
+    noStore()
+
+    try {
+        const count = await sql`SELECT COUNT(*)
+        FROM workoutnotes
+        WHERE
+            workoutnotes.username ILIKE ${`%${query}%`}
+        `
+        const totalPages = Math.ceil(Number(count.rows[0].count) / itemsPerPage)
+        return totalPages
+    } catch(err) {
+        console.error("Database error: ", err)
+        throw new Error("failed to fetch total number of clients")
     }
 }
 

@@ -4,7 +4,7 @@ import Link from "next/link"
 import { ArrowUturnLeftIcon, PencilSquareIcon } from "@heroicons/react/24/outline"
 import { Button } from "../button"
 import { useFormState } from "react-dom"
-import { createWorkoutNote, updateWorkoutNote, deleteWorkoutNote } from "@/app/lib/actions"
+import { updateGymEventNote, deleteGymEventNote } from "@/app/lib/actions"
 import { Notes } from "@/app/lib/definitions"
 
 export default function Form({gymnote}: {gymnote: Notes}) {
@@ -12,8 +12,8 @@ export default function Form({gymnote}: {gymnote: Notes}) {
     const [openEdit, setOpenEdit] = useState(false)
     const [openDeleteModal, setopenDeleteModal] = useState(false)
 
-    const updateNoteCard = updateWorkoutNote.bind(null, gymnote.id)
-    const deleteNoteCard = deleteWorkoutNote.bind(null, gymnote.id)
+    const updateNoteCard = updateGymEventNote.bind(null, gymnote.id)
+    const deleteNoteCard = deleteGymEventNote.bind(null, gymnote.id)
 
     function handleOpenDeleteModal() {
         setopenDeleteModal(prev => !prev)
@@ -51,7 +51,7 @@ export default function Form({gymnote}: {gymnote: Notes}) {
                             Date
                         </h3>
                             <p className="peer block w-full rounded-md border-b border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500">
-                                {month}-{day}-{year}
+                                {formattedDate}
                             </p>
                     </div>
                     

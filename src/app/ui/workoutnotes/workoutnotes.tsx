@@ -2,8 +2,14 @@ import { fetchWorkoutNotes } from "@/app/lib/data";
 import { EyeIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 
-export default async function WorkoutNotes() {
-    const notes = await fetchWorkoutNotes()
+export default async function WorkoutNotes({
+    query,
+    currentPage
+}: {
+    query: string,
+    currentPage: number
+}) {
+    const notes = await fetchWorkoutNotes(query, currentPage)
     const maxChars = 125
     
     return (

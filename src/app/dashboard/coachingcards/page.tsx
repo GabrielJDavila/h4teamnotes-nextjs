@@ -4,6 +4,8 @@ import Search from "@/app/ui/search-clients"
 import Form from "@/app/ui/coachingcards/create-form"
 import AllClients from "../../ui/coachingcards/coaching-cards"
 import Pagination from "@/app/ui/coachingcards/pagination"
+import clsx from "clsx"
+import { lusitana } from "@/app/ui/fonts"
 
 export default async function page(
     { searchParams, }: { searchParams?: {query?: string, page?: string} }) {
@@ -14,7 +16,7 @@ export default async function page(
 
     return (
         <div>
-            <p>Coaching cards page</p>
+            <h1 className={clsx(lusitana.className, 'flex text-xl md:text-2xl')}>Coaching Cards</h1>
             <Form />
             <Search placeholder="Search for clients..."/>
             <AllClients query={query} currentPage={currentPage}/>

@@ -5,7 +5,7 @@ import { UserCircleIcon } from "@heroicons/react/24/outline"
 import { Button } from "../button"
 import { useFormState } from "react-dom"
 // import { Clients } from "@/app/lib/definitions"
-import { createWorkoutNote } from "@/app/lib/actions"
+import { createGymEventNote } from "@/app/lib/actions"
 
 export default function Form() {
     const initialState = {message: null, error: {}}
@@ -18,7 +18,7 @@ export default function Form() {
     async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault()
         const formData = new FormData(event.currentTarget)
-        await createWorkoutNote(formData)
+        await createGymEventNote(formData)
         if(ref.current) {
             ref.current.reset()
         }

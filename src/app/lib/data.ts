@@ -11,7 +11,7 @@ type Client = {
     note: string;
 }
 
-type WorkoutNote = {
+type Note = {
     id: string;
     username: string;
     date: string;
@@ -107,7 +107,7 @@ export async function fetchWorkoutNotes(
     // const offset = (currentPage - 1) * itemsPerPage
     // LIMIT ${itemsPerPage} OFFSET ${offset}
     try {
-        const fetchedNotes = await sql<WorkoutNote>`
+        const fetchedNotes = await sql<Note>`
             SELECT
                 workoutnotes.id,
                 workoutnotes.username,
@@ -127,7 +127,7 @@ export async function fetchWorkoutNotes(
 export async function fetchWorkoutNoteById(id: string) {
     noStore()
     try {
-        const data = await sql<WorkoutNote>`
+        const data = await sql<Note>`
             SELECT
                 workoutnotes.id,
                 workoutnotes.username,
@@ -140,5 +140,47 @@ export async function fetchWorkoutNoteById(id: string) {
     } catch(err) {
         console.error("error: ", err)
         throw new Error(`failed to fetch client ${id}`)
+    }
+}
+
+// gymevents notes fetching functions
+
+export async function fetchGymEventsNotes() {
+    noStore()
+
+    try {
+        const data = await sql<Note>`
+            SELECT
+                gymevents.id,
+                gymevents.username,
+                gymevents.date,
+                gymevents.note
+            FROM gymevents
+            ORDER BY gymevents.date DESC
+        `
+        return data.rows
+    } catch(err) {
+        console.error("error: ", err)
+        throw new Error("failed to fetch notes")
+    }
+}
+
+export async function fetchGymEventsNoteById(id: string) {
+    noStore()
+
+    try {
+        const data = await sql<Note>`
+            SELECT
+                gymevents.id,
+                gymevents.username,
+                gymevents.date,
+                gymevents.note
+            FROM gymevents
+            WHERE id = ${id}
+        `
+        return data.rows[0]
+    } catch(err) {
+        console.error("error: ", err)
+        throw new Error(`failed to fetch note ${id}`)
     }
 }

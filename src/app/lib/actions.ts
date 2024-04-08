@@ -128,7 +128,7 @@ export async function deleteWorkoutNote(noteId: string, formData: FormData) {
 
 // gymevents actions
 
-export async function createGymEventNote(noteId: string, formData: FormData) {
+export async function createGymEventNote(formData: FormData) {
     const { user, date, note } = CreateNote.parse({
         user: formData.get("user"),
         date: formData.get("date"),

@@ -13,3 +13,10 @@ export type Notes = {
     date: string,
     note: string
 }
+
+export type GymNotes = {
+    id: string,
+    username: string,
+    date: string,
+    note: string
+}

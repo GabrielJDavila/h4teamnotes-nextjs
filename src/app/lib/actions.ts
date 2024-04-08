@@ -22,7 +22,7 @@ const updateFormSchema = z.object({
     note: z.string()
 })
 
-const createWorkoutNoteSchema = z.object({
+const createNoteSchema = z.object({
     user: z.string(),
     date: z.string(),
     note: z.string()
@@ -30,7 +30,7 @@ const createWorkoutNoteSchema = z.object({
 
 const CreateClient = FormSchema
 const UpdateClient = updateFormSchema
-const CreateWorkoutNote = createWorkoutNoteSchema
+const CreateNote = createNoteSchema
 
 export async function createClient(formData: FormData) {
     const { firstname, lastname, age, weight, note } = CreateClient.parse({
@@ -85,7 +85,7 @@ export async function deleteClient(clientId: string, formData: FormData) {
 // workoutnotes actions
 
 export async function createWorkoutNote(formData: FormData) {
-    const { user, date, note } = CreateWorkoutNote.parse({
+    const { user, date, note } = CreateNote.parse({
         user: formData.get("user"),
         date: formData.get("date"),
         note: formData.get("note")
@@ -100,7 +100,7 @@ export async function createWorkoutNote(formData: FormData) {
 }
 
 export async function updateWorkoutNote(noteId: string, formData: FormData) {
-    const { user, date, note } = CreateWorkoutNote.parse({
+    const { user, date, note } = CreateNote.parse({
         user: formData.get("user"),
         date: formData.get("date"),
         note: formData.get("note")
@@ -124,4 +124,21 @@ export async function deleteWorkoutNote(noteId: string, formData: FormData) {
     `
     revalidatePath("/dashboard/workoutnotes")
     redirect("/dashboard/workoutnotes")
+}
+
+// gymevents actions
+
+export async function createGymEventNote(noteId: string, formData: FormData) {
+    const { user, date, note } = CreateNote.parse({
+        user: formData.get("user"),
+        date: formData.get("date"),
+        note: formData.get("note")
+    })
+    await sql`
+        INSERT INTO gymevents (username, date, note)
+        VALUES (${user}, ${date}, ${note})
+    `
+
+    revalidatePath("/dashboard/gymevents")
+    redirect("/dashboard/gymevents")
 }

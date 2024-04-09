@@ -2,8 +2,14 @@ import { fetchGymEventsNotes } from "@/app/lib/data";
 import { EyeIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 
-export default async function GymEventsNotes() {
-    const notes = await fetchGymEventsNotes()
+export default async function GymEventsNotes({
+    query,
+    currentPage
+}: {
+    query: string,
+    currentPage: number
+}) {
+    const notes = await fetchGymEventsNotes(query, currentPage)
     const maxChars = 125
     console.log(notes)
     return (

@@ -18,7 +18,9 @@ type Note = {
     note: string;
 }
 
-const itemsPerPage = 10
+const itemsPerPage = 7
+
+// --------- COACHING CARDS FETCHING FUNCTIONS --------- //
 
 export async function fetchPeople() {
     noStore()
@@ -99,7 +101,8 @@ export async function fetchClientPages(query: string) {
     }
 }
 
-// workout notes fetching functions
+// ------- WORKOUT NOTES FETCHING FUNCTIONS ------- //
+
 export async function fetchWorkoutNotes(
     query: string,
     currentPage: number
@@ -163,10 +166,14 @@ export async function fetchWorkoutNoteById(id: string) {
     }
 }
 
-// gymevents notes fetching functions
+// ---------- GYM EVENTS FETCHING FUNCTIONS ----------- //
 
-export async function fetchGymEventsNotes() {
+export async function fetchGymEventsNotes(
+    query: string,
+    currentPage: number
+) {
     noStore()
+    const offset = (currentPage - 1) * itemsPerPage
 
     try {
         const data = await sql<Note>`
@@ -176,12 +183,31 @@ export async function fetchGymEventsNotes() {
                 gymevents.date,
                 gymevents.note
             FROM gymevents
+            WHERE gymevents.username ILIKE ${`%${query}%`}
             ORDER BY gymevents.date DESC
+            LIMIT ${itemsPerPage} OFFSET ${offset}
         `
         return data.rows
     } catch(err) {
         console.error("error: ", err)
         throw new Error("failed to fetch notes")
+    }
+}
+
+export async function fetchGymEventsNotesPages(query: string) {
+    noStore()
+
+    try {
+        const count = await sql`SELECT COUNT(*)
+        FROM gymevents
+        WHERE
+            gymevents.username ILIKE ${`%${query}%`}
+        `
+        const totalPages = Math.ceil(Number(count.rows[0].count) / itemsPerPage)
+        return totalPages
+    } catch(err) {
+        console.error("Database error: ", err)
+        throw new Error("failed to fetch total number of clients")
     }
 }
 

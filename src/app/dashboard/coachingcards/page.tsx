@@ -13,7 +13,7 @@ export default async function page(
     const query = searchParams?.query || ""
     const currentPage = Number(searchParams?.page) || 1
     const totalPages = await fetchClientPages(query)
-
+    console.log(query)
     return (
         <div>
             <h1 className={clsx(lusitana.className, 'flex text-xl md:text-2xl')}>Coaching Cards</h1>

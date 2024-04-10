@@ -5,7 +5,7 @@ import EditClientCard from "@/app/ui/coachingcards/edit-form";
 export default async function Page({ params }: { params: { id: string } }) {
     const id = params.id
     const clientinfo = await fetchClientById(id)
-    console.log(clientinfo)
+
     return (
         <main>
             <Breadcrumbs

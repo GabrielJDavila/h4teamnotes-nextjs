@@ -20,6 +20,50 @@ type Note = {
 
 const itemsPerPage = 7
 
+// --------- DASHBOARD FETCHING FUNCTIONS --------- //
+
+export async function recentWorkoutNote() {
+    noStore()
+    try {
+        const data = await sql<Note>`
+        SELECT
+            workoutnotes.id,
+            workoutnotes.username,
+            workoutnotes.date,
+            workoutnotes.note
+        FROM workoutnotes
+        ORDER BY workoutnotes.date DESC
+        LIMIT 1
+        `
+        return data.rows[0]
+    } catch(err) {
+        console.error("error: ", err)
+        throw new Error("Failed to fetch recent workout note.")
+    }
+}
+
+export async function recentGymEventNote() {
+    noStore()
+    try {
+        const data = await sql<Note>`
+        SELECT
+            gymevents.id,
+            gymevents.username,
+            gymevents.date,
+            gymevents.note
+        FROM gymevents
+        ORDER BY gymevents.date DESC
+        LIMIT 1
+        `
+        return data.rows[0]
+    } catch(err) {
+        console.error("error: ", err)
+        throw new Error("Failed to fetch recent workout note.")
+    }
+}
+
+// fetchDashNoteByID insert here
+
 // --------- COACHING CARDS FETCHING FUNCTIONS --------- //
 
 export async function fetchPeople() {

@@ -1,5 +1,5 @@
 
-import { fetchGymEventsNoteById } from "@/app/lib/data";
+import { fetchRecentDashNoteById } from "@/app/lib/data";
 import Breadcrumbs from "@/app/ui/coachingcards/breadcrumbs";
 import EditDashNote from "@/app/ui/dashboard/edit-note";
 // import { fetchClientById } from "@/app/lib/data";
@@ -8,10 +8,10 @@ import Form from "@/app/ui/gymevents/edit-form";
 
 export default async function Page({ params }: { params: { id: string } }) {
     const id = params.id
-    // const gymnote = await fetchGymEventsNoteById(id)
-  
-    // const clientinfo = await fetchClientById(id)
-    // console.log(clientinfo)
+    // const gymnote = await fetchRecentGymNoteById(id)
+    // const workoutnote = await fetchRecentWorkoutNoteById(id)
+    const dashnote = await fetchRecentDashNoteById(id)
+   console.log(dashnote)
     return (
         <main>
             <Breadcrumbs
@@ -24,7 +24,7 @@ export default async function Page({ params }: { params: { id: string } }) {
                     }
                 ]}
             />
-            <EditDashNote/>
+            <EditDashNote dashnote={dashnote}/>
         </main>
     )
 }

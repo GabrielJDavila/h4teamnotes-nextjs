@@ -7,6 +7,14 @@ export type Clients = {
     note: string
 }
 
+export type RecentNotes = {
+    tablename: string,
+    id: string,
+    username: string,
+    date: string,
+    note: string
+}
+
 export type Notes = {
     id: string,
     username: string,

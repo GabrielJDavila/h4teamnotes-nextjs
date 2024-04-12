@@ -18,6 +18,14 @@ type Note = {
     note: string;
 }
 
+type RecentNote = {
+    tablename: string
+    id: string;
+    username: string;
+    date: string;
+    note: string;
+}
+
 const itemsPerPage = 7
 
 // --------- DASHBOARD FETCHING FUNCTIONS --------- //
@@ -63,6 +71,80 @@ export async function recentGymEventNote() {
 }
 
 // fetchDashNoteByID insert here
+
+export async function fetchRecentDashNoteById(id: string) {
+    noStore()
+    try {
+        let data
+        data = await sql<RecentNote>`
+            SELECT
+                'workoutnotes' AS tablename,
+                workoutnotes.id,
+                workoutnotes.username,
+                workoutnotes.date,
+                workoutnotes.note
+            FROM workoutnotes
+            WHERE workoutnotes.id = ${id}
+        `
+
+        if(data.rows.length === 0) {
+            data = await sql<RecentNote>`
+                SELECT
+                    'gymevents' AS tablename,
+                    gymevents.id,
+                    gymevents.username,
+                    gymevents.date,
+                    gymevents.note
+                FROM gymevents
+                WHERE gymevents.id = ${id}
+                LIMIT 1
+            `
+        }
+        
+        return data.rows[0]
+    } catch(err) {
+        console.error("error: ", err)
+        throw new Error("Failed to fetch note.")
+    }
+}
+
+// export async function fetchRecentWorkoutNoteById(id: string) {
+//     noStore()
+//     try {
+//         const data = await sql<Note>`
+//             SELECT
+//                 workoutnotes.id,
+//                 workoutnotes.username,
+//                 workoutnotes.date,
+//                 workoutnotes.note
+//             FROM workoutnotes
+//             where workoutnotes.id = ${id}
+//         `
+//         return data.rows[0]
+//     } catch(err) {
+//         console.error("error: ", err)
+//         throw new Error("Failed to fetch note.")
+//     }
+// }
+
+// export async function fetchRecentGymNoteById(id: string) {
+//     noStore()
+//     try {
+//         const data = await sql<Note>`
+//             SELECT
+//                 gymevents.id,
+//                 gymevents.username,
+//                 gymevents.date,
+//                 gymevents.note
+//             FROM gymevents
+//             where workoutnotes.id = ${id}
+//         `
+//         return data.rows[0]
+//     } catch(err) {
+//         console.error("error: ", err)
+//         throw new Error("Failed to fetch note.")
+//     }
+// }
 
 // --------- COACHING CARDS FETCHING FUNCTIONS --------- //
 

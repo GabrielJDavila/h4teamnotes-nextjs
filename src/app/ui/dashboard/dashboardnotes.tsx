@@ -23,7 +23,7 @@ export default async function DashNotes() {
                     <p>{workoutNoteFormattedDate}</p>
                     <ArrowRightIcon className="w-6 ml-auto"/>
                 </Link>
-                <Link href={`/dashboard/${workoutnote.id}/edit`} className="dashnote bg-gray-200 p-4 flex items-center gap-8 rounded">
+                <Link href={`/dashboard/${gymeventnote.id}/edit`} className="dashnote bg-gray-200 p-4 flex items-center gap-8 rounded">
                     <p>{gymeventnote.username}</p>
                     <p>{gymNoteFormattedDate}</p>
                     <ArrowRightIcon className="w-6 ml-auto"/>

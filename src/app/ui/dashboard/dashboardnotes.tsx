@@ -1,6 +1,8 @@
 import { recentWorkoutNote, recentGymEventNote } from "@/app/lib/data";
 import Link from "next/link";
 import { ArrowRightIcon } from "@heroicons/react/24/outline";
+import { comfortaa } from "../fonts";
+import clsx from "clsx";
 
 export default async function DashNotes() {
 
@@ -15,8 +17,8 @@ export default async function DashNotes() {
 
 
     return (
-        <div className="">
-            <h2>Recent Notes</h2>
+        <div className="mt-12">
+            <h2 className={clsx(comfortaa.className, 'flex text-md border-b-2 border-gray-200 mb-2')}>Recent Notes</h2>
             <div className="dash-notes-container flex flex-col gap-4">
                 <Link href={`/dashboard/${workoutnote.id}/edit`} className="dashnote bg-gray-200 p-4 flex items-center gap-8 rounded">
                     <p>{workoutnote.username}</p>

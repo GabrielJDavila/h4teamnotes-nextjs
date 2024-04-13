@@ -1,5 +1,5 @@
 import clsx from "clsx"
-import { lusitana } from "../ui/fonts"
+import { lusitana, spartan } from "../ui/fonts"
 import { ArrowRightIcon } from "@heroicons/react/24/outline"
 import DashNotes from "../ui/dashboard/dashboardnotes"
 

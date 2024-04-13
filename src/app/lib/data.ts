@@ -108,43 +108,7 @@ export async function fetchRecentDashNoteById(id: string) {
     }
 }
 
-// export async function fetchRecentWorkoutNoteById(id: string) {
-//     noStore()
-//     try {
-//         const data = await sql<Note>`
-//             SELECT
-//                 workoutnotes.id,
-//                 workoutnotes.username,
-//                 workoutnotes.date,
-//                 workoutnotes.note
-//             FROM workoutnotes
-//             where workoutnotes.id = ${id}
-//         `
-//         return data.rows[0]
-//     } catch(err) {
-//         console.error("error: ", err)
-//         throw new Error("Failed to fetch note.")
-//     }
-// }
 
-// export async function fetchRecentGymNoteById(id: string) {
-//     noStore()
-//     try {
-//         const data = await sql<Note>`
-//             SELECT
-//                 gymevents.id,
-//                 gymevents.username,
-//                 gymevents.date,
-//                 gymevents.note
-//             FROM gymevents
-//             where workoutnotes.id = ${id}
-//         `
-//         return data.rows[0]
-//     } catch(err) {
-//         console.error("error: ", err)
-//         throw new Error("Failed to fetch note.")
-//     }
-// }
 
 // --------- COACHING CARDS FETCHING FUNCTIONS --------- //
 

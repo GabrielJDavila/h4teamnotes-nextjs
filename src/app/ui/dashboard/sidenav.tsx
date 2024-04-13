@@ -15,7 +15,7 @@ export default function SideNav() {
     return (
         <div className="flex h-full flex-col px-3 py-4 md:px-2">
             <Bars2Icon onClick={handleClick} className="w-10 bg-blue-400 hover:bg-blue-600 text-white p-2 rounded ml-auto mr-2 md:hidden"/>
-            <div className={`flex grow flex-col justify-between space-x-2 ${openNav ? "inline" : "hidden"} md:flex-col md:space-x-0 md:space-y-2 md:hidden`}>
+            <div className={`flex grow flex-col justify-between ${openNav ? "inline" : "hidden"} md:flex-col space-x-0 space-y-2 md:hidden mt-4 px-2`}>
                 <NavLinks />
                 <div className="hidden h-auto w-full grow rounded-md bg-gray-50 md:block"></div>
                 <form>

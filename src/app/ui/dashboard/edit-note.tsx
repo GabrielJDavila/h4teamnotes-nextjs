@@ -4,7 +4,7 @@ import Link from "next/link"
 import { ArrowUturnLeftIcon, PencilSquareIcon } from "@heroicons/react/24/outline"
 import { Button } from "../button"
 import { useFormState } from "react-dom"
-import { updateGymEventNote, deleteGymEventNote } from "@/app/lib/actions"
+import { updateDashWorkoutNote, deleteDashWorkoutNote, updateDashGymEventNote, deleteDashGymEventNote } from "@/app/lib/actions"
 import { RecentNotes } from "@/app/lib/definitions"
 
 export default function EditDashNote({dashnote}: {dashnote: RecentNotes}) {
@@ -15,7 +15,8 @@ export default function EditDashNote({dashnote}: {dashnote: RecentNotes}) {
     console.log(dashnote.tablename)
     // const updateNoteCard = updateGymEventNote.bind(null, gymnote.id)
     // const deleteNoteCard = deleteGymEventNote.bind(null, gymnote.id)
-    // const updateDashNote = dashnote.tablename === "workoutnotes" ? (updateworkoutnote) : (updategymeventnote)
+    const updateDashNote = dashnote.tablename === "workoutnotes" ? updateDashWorkoutNote.bind(null, dashnote.id) : updateDashGymEventNote.bind(null, dashnote.id)
+    const deleteDashNote = dashnote.tablename === "workoutnotes" ? deleteDashWorkoutNote.bind(null, dashnote.id) : deleteDashGymEventNote.bind(null, dashnote.id)
 
     function handleOpenDeleteModal() {
         setopenDeleteModal(prev => !prev)
@@ -86,7 +87,7 @@ export default function EditDashNote({dashnote}: {dashnote: RecentNotes}) {
                     </div>
                 </div>
             </div> :
-            <form >
+            <form action={updateDashNote}>
                 <div className="mb-4">
                     <div className="relative flex flex-col">
                         <label htmlFor="user" className="mb-2 block text-sm font-medium">
@@ -150,7 +151,7 @@ export default function EditDashNote({dashnote}: {dashnote: RecentNotes}) {
             </form>
             }
             {openDeleteModal &&
-                <form className="absolute z-20 h-52 border border-gray-200 bg-white p-8 text-center flex flex-col items-center gap-4 top-0 bottom-0 right-0 left-0 shadow-lg rounded-lg m-auto">
+                <form action={deleteDashNote} className="absolute z-20 h-52 border border-gray-200 bg-white p-8 text-center flex flex-col items-center gap-4 top-0 bottom-0 right-0 left-0 shadow-lg rounded-lg m-auto">
                     <h2>Confirm Deletion</h2>
                     <p>Are you sure you want to delete this note?</p>
                     <div className="flex items-center gap-4">

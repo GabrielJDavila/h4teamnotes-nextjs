@@ -168,3 +168,59 @@ export async function deleteGymEventNote(noteId: string, formData: FormData) {
     revalidatePath("/dashboard/gymevents")
     redirect("/dashboard/gymevents")
 }
+
+// -- dashboard actions -- //
+
+export async function updateDashWorkoutNote(noteId: string, formData: FormData) {
+    const { user, date, note } = CreateNote.parse({
+        user: formData.get("user"),
+        date: formData.get("date"),
+        note: formData.get("note")
+    })
+    await sql`
+        UPDATE workoutnotes
+        SET
+            username = ${user},
+            date = ${date},
+            note = ${note}
+        WHERE id = ${noteId}    
+    `
+    revalidatePath("/dashboard")
+    redirect("/dashboard")
+}
+
+export async function deleteDashWorkoutNote(noteId: string, formData: FormData) {
+    await sql`
+        DELETE FROM workoutnotes
+        WHERE id = ${noteId}
+    `
+    revalidatePath("/dashboard")
+    redirect("/dashboard")
+}
+
+export async function updateDashGymEventNote(noteId: string, formData: FormData) {
+    const { user, date, note } = CreateNote.parse({
+        user: formData.get("user"),
+        date: formData.get("date"),
+        note: formData.get("note")
+    })
+    await sql`
+        UPDATE gymevents
+        SET
+            username = ${user},
+            date = ${date},
+            note = ${note}
+        WHERE id = ${noteId}
+    `
+    revalidatePath("/dashboard")
+    redirect("/dashboard")
+}
+
+export async function deleteDashGymEventNote(noteId: string, formData: FormData) {
+    await sql`
+        DELETE FROM gymevents
+        WHERE id = ${noteId}
+    `
+    revalidatePath("/dashboard")
+    redirect("/dashboard")
+}

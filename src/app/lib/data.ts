@@ -26,7 +26,7 @@ type RecentNote = {
     note: string;
 }
 
-const itemsPerPage = 7
+const itemsPerPage = 10
 
 // --------- DASHBOARD FETCHING FUNCTIONS --------- //
 

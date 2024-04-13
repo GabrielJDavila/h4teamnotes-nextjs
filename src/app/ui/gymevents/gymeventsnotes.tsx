@@ -1,6 +1,8 @@
 import { fetchGymEventsNotes } from "@/app/lib/data";
 import { EyeIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
+import { comfortaa } from "../fonts";
+import clsx from "clsx";
 
 export default async function GymEventsNotes({
     query,
@@ -15,7 +17,7 @@ export default async function GymEventsNotes({
     return (
         <div>
             <div className="flex justify-between text-left m-4">
-                <p className="w-1/3">Notes</p>
+                <p className={clsx(comfortaa.className, "w-1/3")}>Notes</p>
             </div>
             <div className="flex flex-col gap-4">
                 {notes ? notes.map((note, index) => {

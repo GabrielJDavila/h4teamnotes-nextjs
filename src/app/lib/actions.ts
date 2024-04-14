@@ -4,6 +4,9 @@ import { z } from "zod"
 import { sql } from "@vercel/postgres"
 import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
+import { AuthError } from "next-auth"
+import { signIn } from "../../../auth"
+import { error } from "console"
 
 const FormSchema = z.object({
     firstname: z.string(),
@@ -31,6 +34,27 @@ const createNoteSchema = z.object({
 const CreateClient = FormSchema
 const UpdateClient = updateFormSchema
 const CreateNote = createNoteSchema
+
+export async function authenticate(
+    prevState: string | undefined,
+    formData: FormData
+) {
+    try {
+        await signIn("credentials", formData)
+    } catch(error) {
+        if(error instanceof AuthError) {
+            switch (error.type) {
+                case "CredentialsSignin":
+                    return "Invalid credentials."
+                default:
+                    return "Something went wrong."
+            }
+        }
+        throw error
+    }
+    revalidatePath("/dashboard/coachingcards")
+    redirect("/dashboard/coachingcards")
+}
 
 export async function createClient(formData: FormData) {
     const { firstname, lastname, age, weight, note } = CreateClient.parse({

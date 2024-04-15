@@ -7,7 +7,9 @@ export default function Home() {
   return (
     <main>
       <p>Main page</p>
-      <LoginPage />
+      <Link href="/login">
+        <p>Login</p>
+      </Link>
     </main>
   )
 }

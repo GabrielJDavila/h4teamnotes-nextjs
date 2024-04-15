@@ -37,9 +37,30 @@ const CreateClient = FormSchema
 const UpdateClient = updateFormSchema
 const CreateNote = createNoteSchema
 
-export async function authenticate() {
-    await signIn("google")
+export async function authenticate(
+    prevState: string | undefined,
+    formData: FormData,
+  ) {
+    try {
+      await signIn('credentials', redirect("http://localhost:3000/dashboard"));
+    } catch (error) {
+      if (error instanceof AuthError) {
+        switch (error.type) {
+          case 'CredentialsSignin':
+            return 'Invalid credentials.';
+          default:
+            return 'Something went wrong.';
+        }
+      }
+      throw error;
+    }
 }
+
+// export async function authenticate() {
+//     await signIn("google", {callbackUrl: `http://localhost:3000/dashboard`})
+//     console.log(signIn)
+//     console.log("success")
+// }
 // export async function authenticate(
 //     prevState: string | undefined,
 //     formData: FormData

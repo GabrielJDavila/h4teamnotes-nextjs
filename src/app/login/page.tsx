@@ -1,4 +1,4 @@
-
+import { signIn } from '../../../auth';
 import LoginForm from '@/app/ui/login-form';
  
 export default function LoginPage() {
@@ -10,7 +10,16 @@ export default function LoginPage() {
             H4 Training
           </div>
         </div>
-        <LoginForm />
+        <form
+          action={async () => {
+            "use server"
+            await signIn("google", ({redirectTo: "http://localhost:3000/dashboard"}))
+          }}
+        >
+          <button type='submit'>
+            Sign in with google
+          </button>
+        </form>
       </div>
     </main>
   );

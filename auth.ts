@@ -17,7 +17,7 @@ async function getUser(email: string): Promise<User | undefined> {
 }
 
 export const {
-  handlers: { GET, POST },
+  handlers,
   auth,
   signIn,
   signOut,

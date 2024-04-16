@@ -7,3 +7,4 @@
 //   // https://nextjs.org/docs/app/building-your-application/routing/middleware#matcher
 //   matcher: ["dashboard"],
 // };
+export { auth as middleware } from "./auth"

@@ -6,7 +6,7 @@ import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
 // import { AuthError } from "next-auth"
 // import { signIn } from "../../../auth"
-import { signIn } from "../../../auth"
+import { signIn, signOut } from "../../../auth"
 import { AuthError } from 'next-auth';
 import { error } from "console"
 
@@ -42,7 +42,8 @@ export async function authenticate(
     formData: FormData,
   ) {
     try {
-      await signIn('credentials', redirect("http://localhost:3000/dashboard"));
+      await signIn('credentials', formData);
+      console.log("signed in!")
     } catch (error) {
       if (error instanceof AuthError) {
         switch (error.type) {
@@ -55,6 +56,16 @@ export async function authenticate(
       throw error;
     }
 }
+
+// export async function signOutUser(
+
+// ) {
+//     try {
+//         await signOut({ redirect: true, callBackUrl: "http://localhost:3000/login" })
+//     } catch(error) {
+//         console.error("error logging out user: ", error)
+//     }
+// }
 
 // export async function authenticate() {
 //     await signIn("google", {callbackUrl: `http://localhost:3000/dashboard`})

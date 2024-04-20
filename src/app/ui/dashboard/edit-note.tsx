@@ -74,7 +74,7 @@ export default function EditDashNote({dashnote}: {dashnote: RecentNotes}) {
                     </div>
                     <div className="mt-6 flex justify-end gap-4">
                         <Link
-                            href="/dashboard/workoutnotes"
+                            href="/dashboard"
                             className="flex gap-2 h-10 items-center rounded-lg bg-gray-100 px-4 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-200"
                         >
                             <ArrowUturnLeftIcon className="h-[18px] w-[18px] text-gray-500 peer-focus:text-gray-900"/>

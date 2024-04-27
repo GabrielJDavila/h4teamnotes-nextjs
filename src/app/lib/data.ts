@@ -191,6 +191,53 @@ export async function fetchClientPages(query: string) {
     }
 }
 
+// ------- CLIENT UPDATES FETCHING FUNCTION ------- //
+
+export async function fetchClientUpdates(
+    query: string,
+    currentPage: number
+) {
+    noStore()
+    const offset = (currentPage - 1) * itemsPerPage
+
+    try {
+        const fetchedUpdates = await sql<Note>`
+            SELECT
+                clientudpates.id,
+                clientupdates.username,
+                clientupdates.note,
+                clientupdates.date
+            FROM clientupdates
+            WHERE clientupdates.username ILIKE ${`%${query}%`}
+            ORDER BY clientupdates.date DESC
+            LIMIT ${itemsPerPage} OFFSET ${offset}
+        `
+        if(fetchedUpdates.rows.length === 0) {
+            return null
+        }
+        return fetchedUpdates.rows
+    } catch(err) {
+        console.error("error: ", err)
+        throw new Error("Failed to fetch client udpates.")
+    }
+}
+
+export async function fetchClientUpdatesPages(query: string) {
+    noStore()
+
+    try {
+        const count = await sql`SELECT COUNT(*)
+        FROM clientupdates
+        WHERE clientupdates.username ILIKE ${`%${query}%`}
+        `
+        const totalPages = Math.ceil(Number(count.rows[0].count) / itemsPerPage)
+        return totalPages
+    } catch(err) {
+        console.error("Database error: ", err)
+        throw new Error("failed to fetch total number of clients")
+    }
+}
+
 // ------- WORKOUT NOTES FETCHING FUNCTIONS ------- //
 
 export async function fetchWorkoutNotes(

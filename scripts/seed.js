@@ -14,7 +14,7 @@ async function seedUsers(client) {
                 firstname VARCHAR(255) NOT NULL,
                 lastname VARCHAR(255) NOT NULL,
                 age TEXT NOT NULL,
-                weight TEXT NOT NULL
+                weight TEXT NOT NULLwhat 
             )
         `
         console.log("created clients table")

@@ -1,3 +1,7 @@
+H4 Team Notes Application. Can only view on local host currently. 
+
+Building a dashboard that users can post, read, and delete notes, as well as a client database to house all clients of the gym. 
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started

@@ -32,7 +32,7 @@ export default async function ClientUpdates({
                                     <p>{note.username}</p>
                                     <p>{formattedDate}</p>
                                 </div>
-                                <Link href={`/dashboard/workoutnotes/${note.id}/edit`} className="flex gap-2 items-center rounded-lg p-2 cursor-pointer transition-colors hover:bg-gray-200">
+                                <Link href={`/dashboard/clientupdates/${note.id}/edit`} className="flex gap-2 items-center rounded-lg p-2 cursor-pointer transition-colors hover:bg-gray-200">
                                     <p className="text-sm">View / Edit</p>
                                     <EyeIcon className="h-[20px] w-[20px] text-white-100 peer-focus:text-gray-900"/>
                                 </Link>

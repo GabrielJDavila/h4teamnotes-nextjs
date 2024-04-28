@@ -203,7 +203,7 @@ export async function fetchClientUpdates(
     try {
         const fetchedUpdates = await sql<Note>`
             SELECT
-                clientudpates.id,
+                clientupdates.id,
                 clientupdates.username,
                 clientupdates.note,
                 clientupdates.date
@@ -235,6 +235,25 @@ export async function fetchClientUpdatesPages(query: string) {
     } catch(err) {
         console.error("Database error: ", err)
         throw new Error("failed to fetch total number of clients")
+    }
+}
+
+export async function fetchClientUpdatesById(id: string) {
+    noStore()
+    try {
+        const data = await sql<Note>`
+            SELECT
+                clientupdates.id,
+                clientupdates.username,
+                clientupdates.date,
+                clientupdates.note
+            FROM clientupdates
+            WHERE clientupdates.id = ${id}
+        `
+        return data.rows[0]
+    } catch(err) {
+        console.error("error: ", err)
+        throw new Error(`failed to fetch client ${id}`)
     }
 }
 

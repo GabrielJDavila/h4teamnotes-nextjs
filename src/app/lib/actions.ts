@@ -164,6 +164,39 @@ export async function deleteClient(clientId: string, formData: FormData) {
     redirect("/dashboard/coachingcards")
 }
 
+// clientupdates actions
+
+export async function createClientUpdate(formData: FormData) {
+    const { user, date, note } = CreateNote.parse({
+        user: formData.get("user"),
+        date: formData.get("date"),
+        note: formData.get("note")
+    })
+    await sql`
+        INSERT INTO clientupdates (username, date, note)
+        VALUES (${user}, ${date}, ${note})
+    `
+    revalidatePath("/dashboard/clientupdates")
+    redirect("/dashboard/clientupdates")
+}
+
+export async function UpdateClientUpdate(noteId: string, formData: FormData) {
+    const {user, date, note} = CreateNote.parse({
+        user: formData.get("user"),
+        date: formData.get("date"),
+        note: formData.get("note")
+    })
+    await sql`
+        UPDATE clientupdates
+        SET
+            username = ${user},
+            date = ${date},
+            note = ${note}
+        WHERE id = ${noteId}
+    `
+    revalidatePath("/dashboard/clientupdates")
+    redirect("/dashboard/clientupdates")
+}
 // workoutnotes actions
 
 export async function createWorkoutNote(formData: FormData) {

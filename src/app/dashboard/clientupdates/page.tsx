@@ -1,4 +1,4 @@
-import Form from "@/app/ui/workoutnotes/create-workoutnote"
+import Form from "@/app/ui/clientupdates/create-form"
 import ClientUpdates from "@/app/ui/clientupdates/clientupdates"
 import Pagination from "@/app/ui/coachingcards/pagination"
 import { fetchWorkoutNotePages, fetchClientUpdatesPages } from "@/app/lib/data"

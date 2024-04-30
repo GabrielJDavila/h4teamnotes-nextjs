@@ -4,7 +4,7 @@ import Link from "next/link"
 import { ArrowUturnLeftIcon, PencilSquareIcon } from "@heroicons/react/24/outline"
 import { Button } from "../button"
 import { useFormState } from "react-dom"
-import { UpdateClientUpdate, deleteWorkoutNote } from "@/app/lib/actions"
+import { UpdateClientUpdate, DeleteClientUpdate } from "@/app/lib/actions"
 import { Notes } from "@/app/lib/definitions"
 
 export default function Form({clientupdate}: {clientupdate: Notes}) {
@@ -13,7 +13,7 @@ export default function Form({clientupdate}: {clientupdate: Notes}) {
     const [openDeleteModal, setopenDeleteModal] = useState(false)
 
     const updateNoteCard = UpdateClientUpdate.bind(null, clientupdate.id)
-    // const deleteNoteCard = deleteclientupdate.bind(null, clientupdate.id)
+    const deleteNoteCard = DeleteClientUpdate.bind(null, clientupdate.id)
 
     function handleOpenDeleteModal() {
         setopenDeleteModal(prev => !prev)
@@ -148,7 +148,7 @@ export default function Form({clientupdate}: {clientupdate: Notes}) {
             </form>
             }
             {openDeleteModal &&
-                <form className="absolute z-20 h-52 border border-gray-200 bg-white p-8 text-center flex flex-col items-center gap-4 top-0 bottom-0 right-0 left-0 shadow-lg rounded-lg m-auto">
+                <form action={deleteNoteCard} className="absolute z-20 h-52 border border-gray-200 bg-white p-8 text-center flex flex-col items-center gap-4 top-0 bottom-0 right-0 left-0 shadow-lg rounded-lg m-auto">
                     <h2>Confirm Deletion</h2>
                     <p>Are you sure you want to delete this note?</p>
                     <div className="flex items-center gap-4">

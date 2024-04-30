@@ -70,7 +70,85 @@ export async function recentGymEventNote() {
     }
 }
 
+export async function recentClientUpdate() {
+    noStore()
+    try {
+        const data = await sql<Note>`
+        SELECT
+            clientupdates.id,
+            clientupdates.username,
+            clientupdates.date,
+            clientupdates.note
+        FROM clientupdates
+        ORDER BY clientupdates.date DESC
+        LIMIT 1
+        `
+        return data.rows[0]
+    } catch(err) {
+        console.error("error: ", err)
+        throw new Error("Failed to fetch recent client update")
+    }
+}
+
 // fetchDashNoteByID insert here
+// export async function fetchRecentDashNoteById(id: string) {
+//     noStore()
+//     try {
+//         const data = await sql<RecentNote>`
+//             SELECT
+//                 workoutnotes.tablename,
+//                 workoutnotes.id,
+//                 workoutnotes.username,
+//                 workoutnotes.date,
+//                 workoutnotes.note
+//             FROM workoutnotes
+//             WHERE workoutnotes.id = ${id}
+
+//             UNION ALL
+
+//             SELECT
+//                 gymevents.tablename,
+//                 gymevents.id,
+//                 gymevents.username,
+//                 gymevents.date,
+//                 gymevents.note
+//             FROM gymevents
+//             WHERE gymevents.id = ${id}
+
+//             UNION ALL
+
+//             SELECT
+//                 clientupdates.tablename,
+//                 clientupdates.id,
+//                 clientupdates.username,
+//                 clientupdates.date,
+//                 clientupdates.note
+//             FROM clientupdates
+//             WHERE clientupdates.id = ${id}
+
+//             LIMIT 1
+//         `
+
+//         const tablename = data.rows[0].tablename
+
+//         const dynamicQuery = await sql<RecentNote>`
+//             SELECT
+//                 tablename,
+//                 id,
+//                 username,
+//                 date,
+//                 note
+//             FROM ${sql.raw(tablename)}
+//             WHERE id = ${id}
+//             LIMIT 1
+//         `
+
+//         return dynamicQuery.rows[0]
+//     } catch(err) {
+//         console.error("error: ", err)
+//         throw new Error("Failed to fetch note.")
+//     }
+// }
 
 export async function fetchRecentDashNoteById(id: string) {
     noStore()

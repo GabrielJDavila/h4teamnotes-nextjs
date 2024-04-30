@@ -57,63 +57,6 @@ export async function authenticate(
     }
 }
 
-// export async function signOutUser(
-
-// ) {
-//     try {
-//         await signOut({ redirect: true, callBackUrl: "http://localhost:3000/login" })
-//     } catch(error) {
-//         console.error("error logging out user: ", error)
-//     }
-// }
-
-// export async function authenticate() {
-//     await signIn("google", {callbackUrl: `http://localhost:3000/dashboard`})
-//     console.log(signIn)
-//     console.log("success")
-// }
-// export async function authenticate(
-//     prevState: string | undefined,
-//     formData: FormData
-//   ) {
-//     try {
-//         console.log("test")
-//       await signIn('credentials', formData);
-//     } catch (error) {
-//       if (error instanceof AuthError) {
-//         switch (error.type) {
-//           case 'CredentialsSignin':
-//             return 'Invalid credentials.';
-//           default:
-//             return 'Something went wrong.';
-//         }
-//       }
-//       throw error;
-//     }
-//     // redirect("/dashboard")
-// }
-// export async function authenticate(
-//     prevState: string | undefined,
-//     formData: FormData
-// ) {
-//     try {
-//         await signIn("credentials", formData)
-//         console.log(signIn)
-//     } catch(error) {
-//         if(error instanceof AuthError) {
-//             switch (error.type) {
-//                 case "CredentialsSignin":
-//                     return "Invalid credentials."
-//                 default:
-//                     return "Something went wrong."
-//             }
-//         }
-//         throw error
-//     }
-//     // revalidatePath("/dashboard")
-//     // redirect("/dashboard")
-// }
-
 export async function createClient(formData: FormData) {
     const { firstname, lastname, age, weight, note } = CreateClient.parse({
         firstname: formData.get("firstname"),
@@ -123,8 +66,8 @@ export async function createClient(formData: FormData) {
         note: formData.get("note")
     })
     await sql`
-        INSERT INTO h4clients (firstname, lastname, age, weight, note)
-        VALUES (${firstname}, ${lastname}, ${age}, ${weight}, ${note})
+        INSERT INTO h4clients (firstname, lastname, age, weight, note, tablename)
+        VALUES (${firstname}, ${lastname}, ${age}, ${weight}, ${note}, h4clients)
     `
     revalidatePath("/dashboard/coachingcards")
     redirect("/dashboard/coachingcards")
@@ -192,6 +135,15 @@ export async function UpdateClientUpdate(noteId: string, formData: FormData) {
             username = ${user},
             date = ${date},
             note = ${note}
+        WHERE id = ${noteId}
+    `
+    revalidatePath("/dashboard/clientupdates")
+    redirect("/dashboard/clientupdates")
+}
+
+export async function DeleteClientUpdate(noteId: string, formData: FormData) {
+    await sql`
+        DELETE FROM clientupdates
         WHERE id = ${noteId}
     `
     revalidatePath("/dashboard/clientupdates")

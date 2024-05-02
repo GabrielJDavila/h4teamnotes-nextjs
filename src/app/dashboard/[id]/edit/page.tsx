@@ -1,5 +1,5 @@
 
-import { fetchRecentDashNoteById } from "@/app/lib/data";
+import { fetchRecentClientUpdateById, fetchRecentDashNoteById } from "@/app/lib/data";
 import Breadcrumbs from "@/app/ui/coachingcards/breadcrumbs";
 import EditDashNote from "@/app/ui/dashboard/edit-note";
 // import { fetchClientById } from "@/app/lib/data";
@@ -11,6 +11,7 @@ export default async function Page({ params }: { params: { id: string } }) {
     // const gymnote = await fetchRecentGymNoteById(id)
     // const workoutnote = await fetchRecentWorkoutNoteById(id)
     const dashnote = await fetchRecentDashNoteById(id)
+    const clientUpdateDashNote = await fetchRecentClientUpdateById(id)
    console.log(dashnote)
     return (
         <main>

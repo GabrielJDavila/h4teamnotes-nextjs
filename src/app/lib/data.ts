@@ -150,6 +150,27 @@ export async function recentClientUpdate() {
 //     }
 // }
 
+export async function fetchRecentClientUpdateById(id: string) {
+    noStore()
+    try {
+        const data = await sql<RecentNote>`
+            SELECT
+                clientupdates.tablename,
+                clientupdates.id,
+                clientupdates.username,
+                clientupdates.date,
+                clientupdates.note
+            FROM clientupdates
+            WHERE clientupdates.id = ${id}
+            LIMIT 1
+        `
+        return data.rows[0]
+    } catch(err) {
+        console.error("error:", err)
+        throw new Error("failed to fetch recent client update.")
+    }
+}
+
 export async function fetchRecentDashNoteById(id: string) {
     noStore()
     try {
@@ -177,6 +198,19 @@ export async function fetchRecentDashNoteById(id: string) {
                 WHERE gymevents.id = ${id}
                 LIMIT 1
             `
+            if(data.rows.length === 0) {
+                data = await sql<RecentNote>`
+                    SELECT
+                        clientupdates.tablename,
+                        clientupdates.id,
+                        clientupdates.username,
+                        clientupdates.date,
+                        clientupdates.note
+                    FROM clientupdates
+                    WHERE clientupdates.id = ${id}
+                    LIMIT 1
+                `
+            }
         }
         
         return data.rows[0]

@@ -9,6 +9,7 @@ export default async function DashNotes() {
     const workoutnote = await recentWorkoutNote()
     const gymeventnote = await recentGymEventNote()
     const clientupdatenote = await recentClientUpdate()
+    console.log(clientupdatenote)
     // const newclient = await recentlyAddedClient()
     
     const [workoutYear, workoutMonth, workoutDay] = workoutnote.date.split("-")

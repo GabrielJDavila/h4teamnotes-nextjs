@@ -238,6 +238,33 @@ export async function deleteGymEventNote(noteId: string, formData: FormData) {
 
 // -- dashboard actions -- //
 
+export async function updateDashClientUpdateNote(noteId: string, formData: FormData) {
+    const { user, date, note } = CreateNote.parse({
+        user: formData.get("user"),
+        date: formData.get("date"),
+        note: formData.get("note")
+    })
+    await sql`
+        UPDATE clientupdates
+        SET
+            username = ${user},
+            date = ${date},
+            note = ${note}
+        WHERE id = ${noteId}    
+    `
+    revalidatePath("/dashboard")
+    redirect("/dashboard")
+}
+
+export async function deleteDashClientUpdateNote(noteId: string, formData: FormData) {
+    await sql`
+        DELETE FROM clientupdates
+        WHERE id = ${noteId}
+    `
+    revalidatePath("/dashboard")
+    redirect("/dashboard")
+}
+
 export async function updateDashWorkoutNote(noteId: string, formData: FormData) {
     const { user, date, note } = CreateNote.parse({
         user: formData.get("user"),

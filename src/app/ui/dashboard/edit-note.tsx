@@ -4,7 +4,7 @@ import Link from "next/link"
 import { ArrowUturnLeftIcon, PencilSquareIcon } from "@heroicons/react/24/outline"
 import { Button } from "../button"
 import { useFormState } from "react-dom"
-import { updateDashWorkoutNote, deleteDashWorkoutNote, updateDashGymEventNote, deleteDashGymEventNote } from "@/app/lib/actions"
+import { updateDashWorkoutNote, deleteDashWorkoutNote, updateDashGymEventNote, deleteDashGymEventNote, updateDashClientUpdateNote, deleteDashClientUpdateNote } from "@/app/lib/actions"
 import { RecentNotes } from "@/app/lib/definitions"
 
 export default function EditDashNote({dashnote}: {dashnote: RecentNotes}) {
@@ -12,12 +12,22 @@ export default function EditDashNote({dashnote}: {dashnote: RecentNotes}) {
     const [openEdit, setOpenEdit] = useState(false)
     const [openDeleteModal, setopenDeleteModal] = useState(false)
     
-    console.log(dashnote.tablename)
     // const updateNoteCard = updateGymEventNote.bind(null, gymnote.id)
     // const deleteNoteCard = deleteGymEventNote.bind(null, gymnote.id)
-    const updateDashNote = dashnote.tablename === "workoutnotes" ? updateDashWorkoutNote.bind(null, dashnote.id) : updateDashGymEventNote.bind(null, dashnote.id)
-    const deleteDashNote = dashnote.tablename === "workoutnotes" ? deleteDashWorkoutNote.bind(null, dashnote.id) : deleteDashGymEventNote.bind(null, dashnote.id)
+    const updateDashNote = dashnote.tablename === "workoutnotes" 
+        ? updateDashWorkoutNote.bind(null, dashnote.id)
+        : dashnote.tablename === "gymevents"
+            ? updateDashGymEventNote.bind(null, dashnote.id)
+            : updateDashClientUpdateNote.bind(null, dashnote.id)
 
+    const deleteDashNote = dashnote.tablename === "workoutnotes"
+        ? deleteDashWorkoutNote.bind(null, dashnote.id)
+        : dashnote.tablename === "gymevents"
+            ? deleteDashGymEventNote.bind(null, dashnote.id)
+            : deleteDashClientUpdateNote.bind(null, dashnote.id)
+    // const updateClientNote = updateDashClientUpdateNote.bind(null, clientupdate.id)
+    // const deleteClientNote = deleteDashClientUpdateNote.bind(null, clientupdate.id)
+    console.log(dashnote)
     function handleOpenDeleteModal() {
         setopenDeleteModal(prev => !prev)
     }
@@ -29,9 +39,13 @@ export default function EditDashNote({dashnote}: {dashnote: RecentNotes}) {
     const [year, month, day] = dashnote.date.split("-")
     const formattedDate = `${month}-${day}-${year}`
 
+    // const [clientUpdateYear, clientUpdateMonth, clientUpdateDay] = clientupdate.date.split("-")
+    // const clientFormattedDate = `${clientUpdateMonth}-${clientUpdateDay}-${clientUpdateYear}`
+
+
     return (
         <div className="mt-4 mb-8 relative">
-            
+
             {!openEdit ?
             <div>
                 <div className="mb-4">

@@ -111,7 +111,7 @@ export default function EditDashNote({dashnote}: {dashnote: RecentNotes}) {
                                 id="user"
                                 name="user"
                                 type="text"
-                                
+                                defaultValue={dashnote.username}
                                 className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
                                 aria-describedby="add-client-error"
                             />
@@ -129,7 +129,7 @@ export default function EditDashNote({dashnote}: {dashnote: RecentNotes}) {
                                 id="date"
                                 name="date"
                                 type="date"
-                                
+                                defaultValue={dashnote.date}
                                 className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
                                 aria-describedby="add-client-error"
                             />
@@ -146,7 +146,7 @@ export default function EditDashNote({dashnote}: {dashnote: RecentNotes}) {
                             <textarea
                                 id="note"
                                 name="note"
-                                
+                                defaultValue={dashnote.note}
                                 className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500 w-full"
                             ></textarea>
                         </div>

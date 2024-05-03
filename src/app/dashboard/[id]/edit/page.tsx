@@ -8,8 +8,6 @@ import Form from "@/app/ui/gymevents/edit-form";
 
 export default async function Page({ params }: { params: { id: string } }) {
     const id = params.id
-    // const gymnote = await fetchRecentGymNoteById(id)
-    // const workoutnote = await fetchRecentWorkoutNoteById(id)
     const dashnote = await fetchRecentDashNoteById(id)
 
     return (

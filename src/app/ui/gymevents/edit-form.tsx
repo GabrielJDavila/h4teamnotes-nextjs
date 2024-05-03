@@ -6,11 +6,13 @@ import { Button } from "../button"
 import { useFormState } from "react-dom"
 import { updateGymEventNote, deleteGymEventNote } from "@/app/lib/actions"
 import { Notes } from "@/app/lib/definitions"
+import { useSession } from "next-auth/react"
 
 export default function Form({gymnote}: {gymnote: Notes}) {
     const initialState = {message: null, error: {}}
     const [openEdit, setOpenEdit] = useState(false)
     const [openDeleteModal, setopenDeleteModal] = useState(false)
+    const { data: session } = useSession()
 
     const updateNoteCard = updateGymEventNote.bind(null, gymnote.id)
     const deleteNoteCard = deleteGymEventNote.bind(null, gymnote.id)
@@ -94,7 +96,7 @@ export default function Form({gymnote}: {gymnote: Notes}) {
                                 id="user"
                                 name="user"
                                 type="text"
-                                defaultValue={gymnote.username}
+                                defaultValue={session?.user?.name || gymnote.username}
                                 className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
                                 aria-describedby="add-client-error"
                             />

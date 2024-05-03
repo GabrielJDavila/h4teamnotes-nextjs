@@ -1,11 +1,15 @@
+
 import clsx from "clsx"
 import { lusitana, spartan } from "../ui/fonts"
 import { ArrowRightIcon } from "@heroicons/react/24/outline"
 import DashNotes from "../ui/dashboard/dashboardnotes"
 import { auth } from "../../../auth"
 import { Session } from "next-auth"
+import { getSession } from "next-auth/react"
 
 export default async function Page() {
+    const session = await auth()
+    console.log(session?.user?.name || "")
     return (
         <main>
             <h1 className={clsx(lusitana.className, 'flex text-2xl')}>Dashboard</h1>

@@ -10,6 +10,8 @@ import SignOutBtn from "./signoutbtn";
 import { useState } from "react";
 
 export default async function SideNav({children}: {children: React.ReactNode}) {
+    const session = await auth()
+    
     // const [openNav, setOpenNav] = useState(false)
 
     // function handleClick() {
@@ -21,12 +23,18 @@ export default async function SideNav({children}: {children: React.ReactNode}) {
       <div>
         <div className="hidden h-full flex-col px-3 py-4 md:px-2 md:flex">
           <div className="flex grow flex-row justify-between space-x-2 md:flex-col md:space-x-0 md:space-y-2">
+            <p className="mb-4">
+              {session?.user?.name || ""}
+            </p>
             <NavLinks />
             <div className="hidden h-auto w-full grow rounded-md bg-gray-50 md:block"></div>
             {children}
           </div>
         </div>
-        <div className="fixed w-full flex flex-row px-3 py-4 md:px-2 md:hidden bg-white z-30 shadow-lg">
+        <div className="fixed w-full flex flex-row px-3 py-4 md:px-2 md:hidden bg-white z-30 shadow-lg items-center">
+          <p>
+            {session?.user?.name || ""}
+          </p>
           <NavMenu />
           {children}
         </div>

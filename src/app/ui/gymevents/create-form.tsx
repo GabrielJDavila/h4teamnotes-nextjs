@@ -4,13 +4,15 @@ import Link from "next/link"
 import { UserCircleIcon } from "@heroicons/react/24/outline"
 import { Button } from "../button"
 import { useFormState } from "react-dom"
-// import { Clients } from "@/app/lib/definitions"
 import { createGymEventNote } from "@/app/lib/actions"
+import { useSession } from "next-auth/react"
 
 export default function Form() {
     const initialState = {message: null, error: {}}
     const [showForm, setShowForm] = useState(false)
     const ref = useRef<HTMLFormElement>(null)
+    const { data: session } = useSession()
+
     function handleClick() {
         setShowForm(prev => !prev)
     }
@@ -41,6 +43,7 @@ export default function Form() {
                                 name="user"
                                 type="text"
                                 placeholder="user"
+                                defaultValue={session?.user?.name || ""}
                                 className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
                                 aria-describedby="add-client-error"
                                 required

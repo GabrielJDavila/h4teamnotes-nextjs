@@ -6,14 +6,14 @@ import { Button } from "../button"
 import { useFormState } from "react-dom"
 import { updateDashWorkoutNote, deleteDashWorkoutNote, updateDashGymEventNote, deleteDashGymEventNote, updateDashClientUpdateNote, deleteDashClientUpdateNote } from "@/app/lib/actions"
 import { RecentNotes } from "@/app/lib/definitions"
+import { useSession } from "next-auth/react"
 
 export default function EditDashNote({dashnote}: {dashnote: RecentNotes}) {
     const initialState = {message: null, error: {}}
     const [openEdit, setOpenEdit] = useState(false)
     const [openDeleteModal, setopenDeleteModal] = useState(false)
-    
-    // const updateNoteCard = updateGymEventNote.bind(null, gymnote.id)
-    // const deleteNoteCard = deleteGymEventNote.bind(null, gymnote.id)
+    const { data: session } = useSession()
+
     const updateDashNote = dashnote.tablename === "workoutnotes" 
         ? updateDashWorkoutNote.bind(null, dashnote.id)
         : dashnote.tablename === "gymevents"
@@ -25,9 +25,7 @@ export default function EditDashNote({dashnote}: {dashnote: RecentNotes}) {
         : dashnote.tablename === "gymevents"
             ? deleteDashGymEventNote.bind(null, dashnote.id)
             : deleteDashClientUpdateNote.bind(null, dashnote.id)
-    // const updateClientNote = updateDashClientUpdateNote.bind(null, clientupdate.id)
-    // const deleteClientNote = deleteDashClientUpdateNote.bind(null, clientupdate.id)
-    console.log(dashnote)
+
     function handleOpenDeleteModal() {
         setopenDeleteModal(prev => !prev)
     }
@@ -111,7 +109,7 @@ export default function EditDashNote({dashnote}: {dashnote: RecentNotes}) {
                                 id="user"
                                 name="user"
                                 type="text"
-                                defaultValue={dashnote.username}
+                                defaultValue={session?.user?.name || dashnote.username}
                                 className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
                                 aria-describedby="add-client-error"
                             />

@@ -6,10 +6,31 @@ import DashNotes from "../ui/dashboard/dashboardnotes"
 import { auth } from "../../../auth"
 import { Session } from "next-auth"
 import { getSession } from "next-auth/react"
+// import { useCallback } from "react"
 
 export default async function Page() {
     const session = await auth()
     console.log(session?.user?.name || "")
+
+    // const sendNotification = () => {
+    //     if("Notification" in window && Notification.permission === "granted") {
+    //         new Notification("Hello Developers!", {
+    //             body: "This is your notification message!",
+    //             icon: "/h4logo.png"
+    //         })
+    //     }
+    // }
+
+    // const requestNotificationPermission = useCallback(() => {
+    //     if("Notification" in window) {
+    //         Notification.requestPermission().then(function (permission) {
+    //             if(permission === "granted") {
+    //                 console.log("Notification permisssion granted!")
+    //                 sendNotification()
+    //             }
+    //         })
+    //     }
+    // }, [])
     return (
         <main>
             <h1 className={clsx(lusitana.className, 'flex text-2xl')}>Dashboard</h1>

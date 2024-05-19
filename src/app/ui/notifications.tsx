@@ -10,19 +10,24 @@ const sendNotification = () => {
     }
 }
 
-export const requestNotificationPermission = useCallback(() => {
-    if("Notification" in window) {
-        Notification.requestPermission().then(function (permission) {
-            if(permission === "granted") {
-                console.log("Notification permisssion granted!")
-                sendNotification()
-            }
-        })
-    }
-}, [])
+export function useNotificationPermission() {
 
-useEffect(() => {
-    if("Notification" in window) {
-        requestNotificationPermission()
-    }
-}, [requestNotificationPermission])
+    const requestNotificationPermission = useCallback(() => {
+        if("Notification" in window) {
+            Notification.requestPermission().then(function (permission) {
+                if(permission === "granted") {
+                    console.log("Notification permisssion granted!")
+                    sendNotification()
+                }
+            })
+        }
+    }, [])
+
+    // useEffect(() => {
+    //     if("Notification" in window) {
+    //         requestNotificationPermission()
+    //     }
+    // }, [requestNotificationPermission])
+
+    return requestNotificationPermission
+}

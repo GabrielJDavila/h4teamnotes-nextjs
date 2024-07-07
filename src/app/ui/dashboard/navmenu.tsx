@@ -15,11 +15,13 @@ export default function NavMenu() {
 
     function handleClick() {
         setOpenNav(prev => !prev)
+        
     }
 
     const handleClickOutside = (e: MouseEvent) => {
         if(menuRef.current && !menuRef.current.contains(e.target as Node)) {
             setOpenNav(false)
+            
         }
     }
 
